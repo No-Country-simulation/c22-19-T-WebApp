@@ -5,6 +5,7 @@ Simulación laboral de No-Country iniciada el 11/11/2024.
 - Adriana Sánchez
 
 ## Colaboradores del repositorio:
+- Carolina Acosta. carolinaacosta_75234 - Backend - Uruguay
 - Elvin Moreno. ElvinMoreno - Front-End - Colombia.
 - César Hernán Ruscica. hernanruscica - Front-End - Argentina.
 - Ignacio Nava. ignacio-nava - Back-End - Argentina
