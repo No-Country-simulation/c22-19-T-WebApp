@@ -12,3 +12,6 @@ Simulación laboral de No-Country iniciada el 11/11/2024.
 - Pedro Tarragó. pepi1100 - Front-End - Argentina.
 - Tomas. Vilt12 - Front-End - Argentina.
 
+## Sistema de Ramas
+-  Se trabaja creando una rama FEATURE a partir de la rama DEVELOP
+-  El nombre de las ramas es _nombre de feature_-_nombre del dev_
