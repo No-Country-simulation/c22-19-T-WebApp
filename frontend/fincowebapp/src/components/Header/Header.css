@@ -1,0 +1,10 @@
+.header{
+    display: flex;
+    flex-direction: row;
+}
+.navbar{
+    list-style: none;
+    display: flex;
+    column-gap: 1em;
+    flex-direction: row;
+}
