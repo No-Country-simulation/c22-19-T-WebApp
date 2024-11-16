@@ -13,4 +13,5 @@
 ## Integrantes
 - Cesar Hernan Ruscica
 - Pedro Tarrago
-*Vayan agregandose*
+- *Vayan agregandose*
+
