@@ -1,0 +1,85 @@
+/* Css principal */
+.searchBar-Filter{
+    background-color: #fff;
+    margin: 0.5rem;
+    border-radius: 0.3rem;
+    border: #000 solid;
+    padding: 0.5rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+/* Css grid icon */
+.searchBar-Icon{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    cursor: pointer;
+}
+
+.searchBar-item{
+    color: gray;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.searchBar-item.is-selected{
+    color: #4F46E5;
+}
+
+.searchBar-button{
+    padding: 0%;
+    margin-bottom: -0.5rem;
+}
+
+.searchBar-text{
+    margin-top: 0.2rem;
+    font-family: poppyns-regular;
+    font: bold;
+}
+
+.searchBar-item.is-selected{
+    color: #8775fa;
+    cursor: pointer;
+}
+.searchBar-item{
+    color: #968ab6;    
+    cursor: pointer;
+}
+.icon-A{
+    font-size: 20px;
+}
+/* Css filter */
+.searchBar-Input-Filter{
+    display: grid;
+    grid-template-columns: 91% 10%;
+    justify-content: center;
+    align-self: auto;
+    
+}
+.searchBar-Input{
+    background-color: #fff;
+    color: #000;
+    border-radius: 1pxrem;
+    font-family: poppyns-regular;
+    font: bold;
+    size: 1rem;
+    height: 2rem;
+   }
+
+.searchBar-button-Filter{
+    margin-left: 0.5rem;
+    background-color: #8775fa;
+    width: 35px; /* El ancho debe ser igual a la altura */
+    height: 35px; /* Altura del botón */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0%;
+}
+
+.icon{
+    color: #fff;
+    border-color: #fff;
+    /* border: 3px solid #fff; */
+    font-size: 18px; 
+}
