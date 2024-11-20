@@ -23,7 +23,7 @@ static/
 node_modules/
 
 #Django migrations
-*/migrations/
+# */migrations/*
 *.pyc
 .pyo
 */migrations/00*.py
