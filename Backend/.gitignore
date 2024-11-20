@@ -1,0 +1,29 @@
+# General
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.env
+.DSStore
+Thumbs.db
+_pycache/
+*.swp
+
+#Environment
+venv/
+env/
+.virtualenv/
+
+#Django specific
+db.sqlite3
+media/
+staticfiles/
+static/
+node_modules/
+
+#Django migrations
+*/migrations/
+*.pyc
+.pyo
+*/migrations/00*.py
