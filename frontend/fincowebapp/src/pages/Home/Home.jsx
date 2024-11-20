@@ -1,5 +1,7 @@
+
 import { Header, CardWelcome } from "../../components/"
 import { fakeUser } from "../../utils/data";
+import Card_ventas_sucursales from "../../components/Card_ventas_sucursales/Card_ventas_sucursales";
 
 export const Home = () => {
     return (
@@ -12,6 +14,12 @@ export const Home = () => {
             name={fakeUser.nombre}
             salesValue = {192065}
             salesValuePrev = {132000}
+          />
+          <Card_ventas_sucursales
+          sucursal="Constitución"
+          localidad="Colima"
+          ventas={700}
+          objetivo_ventas={1000}
           />
         </main>
       </>
