@@ -1,6 +1,7 @@
 .header{
     display: flex;
     flex-direction: row;
+    color: #000000;
 }
 .navbar{
     list-style: none;

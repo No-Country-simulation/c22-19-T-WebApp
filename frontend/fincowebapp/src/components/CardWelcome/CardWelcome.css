@@ -51,9 +51,9 @@
     border: 1px solid #E2E8F0;
     background-color: #FFFEFE;
     color: #332C49;
-    border-radius: 6px;    
+    border-radius: 10px;    
     padding: 1em 0.75em;
-    width: 380px;
+    width: 480px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;

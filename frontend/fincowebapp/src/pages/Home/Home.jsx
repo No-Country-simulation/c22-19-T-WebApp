@@ -12,17 +12,31 @@ export const Home = () => {
           <h2>Home</h2>
           <p>Esta es la pagina de home</p>
 
-          <SearchBar></SearchBar>
+         
 
           <CardWelcome 
             name={fakeUser.nombre}
             salesValue = {192065}
             salesValuePrev = {132000}
           />
+
+           <SearchBar></SearchBar>
           <Card_ventas_sucursales
           sucursal="Constitución"
           localidad="Colima"
           ventas={700}
+          objetivo_ventas={1000}
+          />
+          <Card_ventas_sucursales
+          sucursal="La Toscana"
+          localidad="Guadalajara"
+          ventas={650}
+          objetivo_ventas={1000}
+          />
+          <Card_ventas_sucursales
+          sucursal="Las Garzas"
+          localidad="Monterrey"
+          ventas={500}
           objetivo_ventas={1000}
           />
 
