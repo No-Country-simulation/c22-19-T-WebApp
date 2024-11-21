@@ -51,3 +51,15 @@ class Perfil(models.Model):
 		verbose_name_plural = "perfiles"
 	def __str__(self):
 		return self.user.username
+	
+class Venta(models.Model):
+	perfil = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+	total = models.DecimalField(max_digits=12, decimal_places=2)
+	fecha = models.DateTimeField(auto_now_add=True)
+
+class Meta(models.Model):
+	cantidad = models.DecimalField(max_digits=12, decimal_places=2)
+	sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, null=True, blank=True)
+	start_date = models.DateField()
+	end_date = models.DateField()
+	create_at = models.DateTimeField(auto_now_add=True)
