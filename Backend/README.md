@@ -88,10 +88,19 @@ python manage.py runserver
 
 Se puede al proyecto en tu navegador en las dirección predeterminadas: 
 
+*Administración*
+
 [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) o [http://localhost:8000/admin/](http://localhost:8000/admin/)
+
+*API*
 
 [http://127.0.0.1:8000/negocio/api/v1/sucursal/](http://127.0.0.1:8000/negocio/api/v1/sucursal/) o [http://localhost:8000/negocio/api/v1/sucursal/](http://localhost:8000/negocio/api/v1/sucursal/)
 
+*Docs*
+
+[http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/) o [http://localhost:8000/docs/](http://localhost:8000/docs/)
+
+[http://127.0.0.1:8000/redoc/](http://127.0.0.1:8000/redoc/) o [http://localhost:8000/redoc/](http://localhost:8000/redoc/) 
 
 ---
 
