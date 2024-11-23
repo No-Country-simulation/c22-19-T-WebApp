@@ -1,11 +1,93 @@
-.header{
-    display: flex;
-    flex-direction: row;
-    color: #000000;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 900px;
+    width: 200px;
+    background: #332c49;
+    margin: 0;
+    padding: 0;
+    padding: 20px 24px 20px 24px;
+
+
 }
-.navbar{
-    list-style: none;
+
+.navbar-logo{
+    margin:10px 0 0 0 ;
+}
+
+.navbar-logo img{
+ height: 25px;
+ width: 130px;    
+
+}
+
+.navbar-child {
     display: flex;
-    column-gap: 1em;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 24px;
+    height: 65%;
+    margin: 55px 0 0 0;
+}
+
+.navbar-child a {
+    display: flex;
+    align-items: center;
+    color: #968AB6;
+    width: 170px;
+    padding: 6px 0 6px 15px;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.navbar-child i {
+    font-size: 24px;
+    padding: 0px 15px 0 0;
+}
+
+.navbar-child a:focus {
+    background: #4F46E5;
+    color: #ffffff;
+}
+.navbar-child a:hover{
+    scale: 1.1;
+    color: #ffffff;
+    transition: 0.2s;
+    }
+
+/* Segunda seccion */
+.navbar-child-second {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+}
+
+.navbar-child-second a {
+    display: flex;
+    align-items: center;
+    color: #968AB6;
+    width: 170px;
+    padding: 6px 0 6px 15px;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 18px;
+    transition: 0.2s;
+
+}
+.navbar-child-second a:hover{
+scale: 1.1;
+color: #ffffff;
+transition: 0.2s;
+}
+.navbar-child-second a:focus {
+    background: #4F46E5;
+    color: #ffffff;
+}
+.navbar-child-second i {
+    font-size: 24px;
+    padding: 0px 15px 0 0;
 }
