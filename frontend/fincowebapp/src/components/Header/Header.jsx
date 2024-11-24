@@ -5,7 +5,7 @@ import LOGO from "../../assets/Logo.png";
 import { MdOutlineNotifications } from "react-icons/md";
 export const Header = () => {
     return (
-        <header className="header">
+        <aside className="aside">
          
           <nav className="navbar" >
                   <div className="navbar-logo">
@@ -32,6 +32,6 @@ export const Header = () => {
 
             
           </nav>
-        </header>
+        </aside>
       );
 }
