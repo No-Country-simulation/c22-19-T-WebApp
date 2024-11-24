@@ -3,13 +3,13 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 220px;
+    width: 200px;
     background: #332c49;
     margin: 0;
     padding: 0;
     padding: 20px 24px 20px 24px;
     z-index: 100;
-    box-shadow: 1px 0 5px #000000;
+ 
 }
 
 
