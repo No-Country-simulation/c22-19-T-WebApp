@@ -21,9 +21,7 @@ export const Header = () => {
                     </div>
 
                     <div className="navbar-child-second">
-                      
-                      <Link to="/"><i><FaRegBell /></i>Notificaciones</Link>
-                     
+                       
                       <Link to="/branches"><i><FaList /></i>Menu</Link>
                       
                       <Link to="/staff"><i><FaUserTie/></i>Mi cuenta</Link>
