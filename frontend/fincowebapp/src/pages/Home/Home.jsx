@@ -5,6 +5,9 @@ import { SearchBar } from "../../components/filter/SearchBar";
 import Card_ventas_sucursales from "../../components/Card_ventas_sucursales/Card_ventas_sucursales";
 
 export const Home = () => {
+
+
+
     return (
       <>
         <Header />
@@ -16,6 +19,7 @@ export const Home = () => {
             name={fakeUser.nombre}
             salesValue = {192065}
             salesValuePrev = {132000}
+            period="mensual"
           />
 
            <SearchBar></SearchBar>
