@@ -1,3 +1,4 @@
 export * from './Home/Home';
 export * from './Dashboard/Dashboard';
-export * from './Notfound/Notfound';
+export * from './UnderConstruction/UnderConstruction';
+export * from './NotFound/NotFound';
