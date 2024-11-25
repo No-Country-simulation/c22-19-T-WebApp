@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './App.css'
-import { Home, NotFound, UnderConstruction } from "./pages";
+import { Home, Notfound, UnderConstruction } from "./pages";
 
 function App() {
   
@@ -15,7 +15,7 @@ function App() {
         <Route path="sales" element={<UnderConstruction />}/>
         <Route path="branches" element={<UnderConstruction />}/>
         <Route path="staff" element={<UnderConstruction />}/>
-        <Route path="*" element={<NotFound />}/>  
+        <Route path="*" element={<Notfound />}/>  
       </Routes>         
     </BrowserRouter>
     </>
