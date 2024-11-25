@@ -4,7 +4,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  max-width: 420px;
+  max-width: 80%;
   margin: auto;
   margin-top: 25px;
   font-family: "Poppins", sans-serif;
@@ -44,7 +44,7 @@
 }
 
 .monto {
-  color: #3b5bdb;
+  color: #4F46E5;
   font-weight: 600;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .progress-bar {
-  background: #3b5bdb;
+  background: #4F46E5;
   height: 100%;
   border-radius: 4px 0 0 4px;
   transition: width 0.3s ease-in-out;

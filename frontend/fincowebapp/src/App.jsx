@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './App.css'
-import { Home, Dashboard, Notfound } from "./pages";
+import { Home, Dashboard, Notfound, Login } from "./pages";
 
 function App() {
   
@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="dashboard" element={<Dashboard />}/>
+        <Route path="login" element={<Login />}/>
        {/* <Route path="sales" element={<Sales />}/>
         <Route path="branches" element={<Branches />}/>
         <Route path="staff" element={<Staff />}/>*/}
