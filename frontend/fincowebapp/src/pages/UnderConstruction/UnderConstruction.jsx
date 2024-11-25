@@ -7,7 +7,12 @@ export const UnderConstruction = () => {
         <Header />
         <main>
           <h2 className="under_contruction_title2">En construcción</h2>
-          <img className="under_contruction_image" src="./images/UnderConstruction.png" alt="Imagen que ilustra una pagina web en construcción" title="En construcción" />          
+          <figure>
+            <img className="under_contruction_image" src="./images/UnderConstruction.png" alt="Imagen que ilustra una pagina web en construcción" title="En construcción" />          
+            <figcaption>
+              Under construction image.
+            </figcaption>
+          </figure>
         </main>
       </>
       );
