@@ -36,9 +36,19 @@ const getSalesData = async () => {
     console.log(error);
   }
 }
+//https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/
+const getBranchesData = async () => {
+  try {
+    const response3 = await axios.get(`https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/`);      
+    // console.log(response3)
+    setCurrentBranches(response3.data);    
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const loadData = async () => {
-  await Promise.all([getUserData(), getSalesData()]);
+  await Promise.all([getUserData(), getSalesData(), getBranchesData()]);
 }
 
 useEffect(() => {
@@ -62,6 +72,8 @@ useEffect(() => {
      </>
    )
  } 
+
+ console.log(currentBranches);
 
     return (
       <>
