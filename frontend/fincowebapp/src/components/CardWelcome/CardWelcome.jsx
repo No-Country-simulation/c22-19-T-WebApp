@@ -4,33 +4,8 @@ import { MdMoreVert, MdOutlineFilterAlt } from "react-icons/md";
 import "./CardWelcome.css";
 
 export const CardWelcome = (props) => {
-  const { name = "Usuario", salesValue = 0, salesValuePrev = 0, period = "mensual" } = props;
-
-  /* harcoded data */
-  const sales = [
-    {
-      period: "semanal",
-      salesValue: 1280,
-      salesValuePrev: 1000,
-    },
-    {
-      period: "mensual",
-      salesValue: 5120,
-      salesValuePrev: 4000,
-    },
-    {
-      period: "semestral",
-      salesValue: 30720,
-      salesValuePrev: 32000,
-    },
-    {
-      period: "anual",
-      salesValue: 61440,
-      salesValuePrev: 60057,
-    }
-  ]
-
-  const [selectedPeriod, setSelectedPeriod] = useState(period);
+  const { name = "Usuario", sales, period = "mensual", onChangePeriod } = props;
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSalesData, setCurrentSalesData] = useState(sales.find(sale => sale.period == period));
 
@@ -43,7 +18,7 @@ export const CardWelcome = (props) => {
   };
 
   const handlePeriodChange = (newPeriod) => {
-    setSelectedPeriod(newPeriod);
+    onChangePeriod(newPeriod);
     setCurrentSalesData(sales.find(sale => sale.period == newPeriod));
     setIsMenuOpen(false); // Cierra el menú al seleccionar un período
     
@@ -58,7 +33,7 @@ export const CardWelcome = (props) => {
         <div className="cardwelcome__header__badge-filter-container">
           <div className="badge-filter">
             <MdOutlineFilterAlt className="badge-filter-icon" />
-            <span>{selectedPeriod}</span>
+            <span>{period}</span>
           </div>
           <div className="cardwelcome__header-btn-menu">
             <MdMoreVert className="menu-open-icon" onClick={handleMenuToggle} />
