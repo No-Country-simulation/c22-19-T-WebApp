@@ -72,7 +72,7 @@ class Venta(models.Model):
     perfil = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
     total = models.DecimalField(max_digits=12, decimal_places=2)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateField()
 
 
 class Meta(models.Model):
