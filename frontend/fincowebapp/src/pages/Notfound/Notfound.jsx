@@ -1,9 +1,9 @@
 import { Header } from "../../components"
 import { Link } from "react-router-dom";
-import './NotFound.css';
+import './Notfound.css';
 
 
-export const NotFound = () => {
+export const Notfound = () => {
     return (
       <>
         <Header />
