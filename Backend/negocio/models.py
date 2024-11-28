@@ -35,7 +35,7 @@ class Sucursal(models.Model):
 
 
 class Rol(models.Model):
-    nombre = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=200, unique = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -73,7 +73,7 @@ class Venta(models.Model):
         User, on_delete=models.CASCADE, null=True, blank=True)
     total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha = models.DateField()
-
+    sucursal = models.Sucursal()
 
 class Meta(models.Model):
     cantidad = models.DecimalField(max_digits=12, decimal_places=2)
