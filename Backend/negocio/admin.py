@@ -6,5 +6,11 @@ admin.site.register(Rol)
 admin.site.register(Provincia)
 admin.site.register(Ciudad)
 admin.site.register(Sucursal)
-admin.site.register(Venta)
+
+
+class VentaAdmin(admin.ModelAdmin):
+    exclude = ('sucursal',)
+
+
+admin.site.register(Venta, VentaAdmin)
 admin.site.register(Meta)
