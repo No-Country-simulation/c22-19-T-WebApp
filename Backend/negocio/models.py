@@ -77,11 +77,11 @@ class Venta(models.Model):
     )
     total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha = models.DateField()
-
+        
     def clean(self):
-        '''
-        Se encarga de verificar que el usuario sea de ventas y tenga un sucursal asignada.
-        '''
+        
+        #Se encarga de verificar que el usuario sea de ventas y tenga un sucursal asignada.
+        
         if not self.user:
             raise ValidationError('No hay usuario/perfil asignado')
 
@@ -97,8 +97,8 @@ class Venta(models.Model):
         self.clean()
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return f"{self.sucursal.nombre} | {self.user.username} | {self.total}"
+    #def __str__(self):
+    #    return f"{self.sucursal.nombre} | {self.user.username} | {self.total}"
 
 
 class Meta(models.Model):
