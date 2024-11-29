@@ -30,7 +30,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@example.com"),
         license=openapi.License(name="BSD License"),
     ),
-    public=True,  # Hace que la documentación no sea pública
+    public=False,  # Hace que la documentación no sea pública
     # Solo usuarios administradores pueden verla
     #  permission_classes=[permissions.IsAdminUser],
 )
