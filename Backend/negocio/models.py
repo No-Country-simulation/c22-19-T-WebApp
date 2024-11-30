@@ -67,8 +67,24 @@ class Perfil(models.Model):
 
     def __str__(self):
         return self.user.username
+    
 
+class Producto(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    imagen = models.ImageField(upload_to='portada')
+    slug = models.SlugField(max_length=255, unique=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    in_stock = models.BooleanField(default=True)
+    objects = models.Manager()
 
+    class Meta:
+        verbose_name = ('Producto')
+        verbose_name_plural = ('Productos')
+
+    def __str__(self):
+        return self.title
+        
 class Venta(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
@@ -77,11 +93,12 @@ class Venta(models.Model):
     )
     total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha = models.DateField()
-
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
+        
     def clean(self):
-        '''
-        Se encarga de verificar que el usuario sea de ventas y tenga un sucursal asignada.
-        '''
+        
+        #Se encarga de verificar que el usuario sea de ventas y tenga un sucursal asignada.
+        
         if not self.user:
             raise ValidationError('No hay usuario/perfil asignado')
 
@@ -97,8 +114,8 @@ class Venta(models.Model):
         self.clean()
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return f"{self.sucursal.nombre} | {self.user.username} | {self.total}"
+    #def __str__(self):
+    #    return f"{self.sucursal.nombre} | {self.user.username} | {self.total}"
 
 
 class Meta(models.Model):

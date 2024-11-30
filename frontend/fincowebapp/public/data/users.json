@@ -1,0 +1,20 @@
+[
+    {
+    "id": 1,
+    "nombre": "Beatriz",
+    "apellido": "Fernandéz",
+    "foto_perfil": "fotoperfil.webb"
+    },
+    {
+    "id": 2,
+    "nombre": "Luis",
+    "apellido": "Gonzalez",
+    "foto_perfil": "fotoperfil2.webb"
+    },
+    {
+    "id": 3,
+    "nombre": "Pedro",
+    "apellido": "Perez",
+    "foto_perfil": "fotoperfil3.webb"
+    }  
+]

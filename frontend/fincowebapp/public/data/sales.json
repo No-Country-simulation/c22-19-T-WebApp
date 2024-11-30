@@ -1,0 +1,22 @@
+[
+    {
+      "period": "semanal",
+      "salesValue": 1280,
+      "salesValuePrev": 1000
+    },
+    {
+      "period": "mensual",
+      "salesValue": 5120,
+      "salesValuePrev": 4000
+    },
+    {
+      "period": "semestral",
+      "salesValue": 30720,
+      "salesValuePrev": 32000
+    },
+    {
+      "period": "anual",
+      "salesValue": 61440,
+      "salesValuePrev": 60057
+    }
+  ]
