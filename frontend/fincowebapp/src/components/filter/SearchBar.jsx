@@ -2,16 +2,31 @@ import { FaFilter, FaBuilding, FaShoppingBag, FaBookReader } from "react-icons/f
 import {useState} from "react";
 
 import './SearchBar.css';
+import { DialogFilter } from "../sucursal_modal_filter/modal_filter_sucursal";
 
 
-
-export function SearchBar(){
+export function SearchBar({ setSearchText, setSelectedIcon }){
     const [selected, setSelected] = useState("");
-
+    
     const handleClick = (iconName) => {
         setSelected(iconName);
+        setSelectedIcon(iconName);
     }
     
+    const handleImputChange = (event) => {
+        setSearchText(event.target.value);
+    }
+
+    //abrir modal
+    const [open, setOpen] = useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
     return (
         <div className="searchBar-Filter">
             <div className="searchBar-Icon">
@@ -38,9 +53,17 @@ export function SearchBar(){
             </div> 
             </div>
             <div className="searchBar-Input-Filter">
-                <input className="searchBar-Input" type="text" placeholder="Buscar..."/>
-                <button className="searchBar-button-Filter">
+                <input 
+                className="searchBar-Input" 
+                type="text" 
+                placeholder="Buscar..."
+                onChange={handleImputChange}
+                />
+                <button className="searchBar-button-Filter"
+                onClick={handleClickOpen}
+                >
                     <FaFilter className="icon" /></button>
+                    <DialogFilter open={open} onClose={handleClose}></DialogFilter>
             </div>
         </div>
     )

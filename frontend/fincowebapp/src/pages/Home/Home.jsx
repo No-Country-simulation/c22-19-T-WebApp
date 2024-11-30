@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Header, CardWelcome } from "../../components/"
 import { SearchBar } from "../../components/filter/SearchBar";
 import Card_ventas_sucursales from "../../components/Card_ventas_sucursales/Card_ventas_sucursales";
-
+import { useState } from "react";
 export const Home = () => {
 
 /* Esta rama la cree para poder ir integrando las diferentes cards con los datos traidos de los endpoints */
@@ -75,6 +75,12 @@ useEffect(() => {
 
  console.log(currentBranches);
 
+  ];
+
+  const filteredCards =  selectecIcon === "building"
+  ? cardsData.filter((card) => 
+    card.sucursal.toLowerCase().includes(searchtText.toLowerCase())
+  ):[];
     return (
       <>
         <Header />
