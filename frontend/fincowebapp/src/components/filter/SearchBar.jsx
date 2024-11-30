@@ -5,11 +5,10 @@ import './SearchBar.css';
 import { DialogFilter } from "../sucursal_modal_filter/modal_filter_sucursal";
 
 
-export function SearchBar({ setSearchText, setSelectedIcon }){
-    const [selected, setSelected] = useState("");
+export function SearchBar({ setSearchText, searchText,  setSelectedIcon, selectedIcon }){
     
-    const handleClick = (iconName) => {
-        setSelected(iconName);
+    
+    const handleClick = (iconName) => {        
         setSelectedIcon(iconName);
     }
     
@@ -31,21 +30,21 @@ export function SearchBar({ setSearchText, setSelectedIcon }){
         <div className="searchBar-Filter">
             <div className="searchBar-Icon">
             <div
-                className={`searchBar-item ${selected === "building" ? "is-selected" : ""}`}
+                className={`searchBar-item ${selectedIcon === "building" ? "is-selected" : ""}`}
                 onClick={() => handleClick("building")}
             >
             <p className="searchBar-button "><FaBuilding  className="icon-A" /></p>            
             <p className="searchBar-text">Sucursal</p>
             </div>
             <div
-                className={`searchBar-item ${selected === "shoppingBag" ? "is-selected" : ""}`}
+                className={`searchBar-item ${selectedIcon === "shoppingBag" ? "is-selected" : ""}`}
                 onClick={() => handleClick("shoppingBag")}
             >
             <p className="searchBar-button"><FaShoppingBag className="icon-A" /></p>
             <p className="searchBar-text">Producto</p>
             </div>
             <div
-                className={`searchBar-item ${selected === "bookReader" ? "is-selected" : ""}`}
+                className={`searchBar-item ${selectedIcon === "bookReader" ? "is-selected" : ""}`}
                 onClick={() => handleClick("bookReader")}
             >
             <p className="searchBar-button"><FaBookReader className="icon-A" /></p>
@@ -57,6 +56,7 @@ export function SearchBar({ setSearchText, setSelectedIcon }){
                 className="searchBar-Input" 
                 type="text" 
                 placeholder="Buscar..."
+                value={searchText}
                 onChange={handleImputChange}
                 />
                 <button className="searchBar-button-Filter"

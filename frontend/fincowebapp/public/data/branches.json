@@ -1,0 +1,5 @@
+[
+  { "sucursal": "Constitución", "localidad": "Colima", "ventas": 700, "objetivo_ventas": 1000 },
+  { "sucursal": "La Toscana", "localidad": "Guadalajara", "ventas": 650, "objetivo_ventas": 1000 },
+  { "sucursal": "Las Garzas", "localidad": "Monterrey", "ventas": 500, "objetivo_ventas": 1000 }
+]

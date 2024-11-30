@@ -1,13 +1,9 @@
 
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/"
 
-import { Header, CardWelcome } from "../../components/"
-import { SearchBar } from "../../components/filter/SearchBar";
-import Card_ventas_sucursales from "../../components/Card_ventas_sucursales/Card_ventas_sucursales";
-import { useState } from "react";
 export const Home = () => {
-
 /* Esta rama la cree para poder ir integrando las diferentes cards con los datos traidos de los endpoints */
 
 const [currentUser, setCurrentUser] = useState([]);
@@ -17,6 +13,8 @@ const [currentSales, setCurrentSales] = useState([]);
 const [loading, setLoading] = useState(true);
 
 const [filterPeriod, setFilterPeriod] = useState('mensual');
+const [searchText, setSearchText] = useState('');
+const [selectedIcon, SetSelectedIcon] = useState('building');
 
 const getUserData = async () => {
   try {
@@ -29,8 +27,7 @@ const getUserData = async () => {
 
 const getSalesData = async () => {
   try {
-    const response2 = await axios.get(`http://localhost:5173/data/sales.json`);      
-    
+    const response2 = await axios.get(`http://localhost:5173/data/sales.json`);          
     setCurrentSales(response2.data);    
   } catch (error) {
     console.log(error);
@@ -39,8 +36,7 @@ const getSalesData = async () => {
 //https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/
 const getBranchesData = async () => {
   try {
-    const response3 = await axios.get(`https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/`);      
-    // console.log(response3)
+    const response3 = await axios.get(`http://localhost:5173/data/branches.json`);          
     setCurrentBranches(response3.data);    
   } catch (error) {
     console.log(error);
@@ -71,16 +67,13 @@ useEffect(() => {
        Cargando...
      </>
    )
- } 
-
- console.log(currentBranches);
-
-  ];
-
-  const filteredCards =  selectecIcon === "building"
-  ? cardsData.filter((card) => 
-    card.sucursal.toLowerCase().includes(searchtText.toLowerCase())
+ }  
+  const filteredBranches =  selectedIcon === "building"
+  ? currentBranches.filter((branch) => 
+    branch.sucursal.toLowerCase().includes(searchText.toLowerCase())
   ):[];
+  //console.log(currentSales)
+
     return (
       <>
         <Header />
@@ -95,26 +88,22 @@ useEffect(() => {
             onChangePeriod = {setFilterPeriod}
           />
 
-          <SearchBar></SearchBar>
-          <Card_ventas_sucursales
-          sucursal="Constitución"
-          localidad="Colima"
-          ventas={700}
-          objetivo_ventas={1000}
+          <SearchBar 
+            setSearchText = {setSearchText}
+            searchText = {searchText}
+            setSelectedIcon={SetSelectedIcon}
+            selectedIcon={selectedIcon}
           />
-          <Card_ventas_sucursales
-          sucursal="La Toscana"
-          localidad="Guadalajara"
-          ventas={650}
-          objetivo_ventas={1000}
-          />
-          <Card_ventas_sucursales
-          sucursal="Las Garzas"
-          localidad="Monterrey"
-          ventas={500}
-          objetivo_ventas={1000}
-          />
-
+          {filteredBranches.map((filteredBranch, index) => (
+            <Card_ventas_sucursales 
+              key={`sucursal#${index}_filteredBranch.sucursal`}
+              sucursal={filteredBranch.sucursal}
+              localidad={filteredBranch.localidad}
+              ventas={currentSales.find(sale => sale.period == filterPeriod).salesValue}
+              objetivo_ventas={filteredBranch.objetivo_ventas}
+            />
+          )
+          )}       
         </main>
       </>
       );
