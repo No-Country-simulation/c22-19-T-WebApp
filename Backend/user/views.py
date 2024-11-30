@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,) #Permisos que se le da la clase.
     authentication_classes = (SessionAuthentication,)
+    http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
 
     def post(self, request):
         data = request.data #Usuario y contraseña
@@ -34,6 +35,7 @@ class UserLogout(APIView):
 class UserView(APIView): #Datos del usuario, como ya vimos anteriormente en el archivo urls.py.
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
+    http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
 
     def get(self, request):
         serializer_user = UserSerializer(request.user)
