@@ -30,7 +30,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@example.com"),
         license=openapi.License(name="BSD License"),
     ),
-    public=True,  # Hace que la documentación no sea pública
+    public=False,  # Hace que la documentación no sea pública
     # Solo usuarios administradores pueden verla
     #  permission_classes=[permissions.IsAdminUser],
 )
@@ -38,8 +38,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('negocio/', include('negocio.urls')),
+    path('user/', include('user.urls')),
     re_path(r'^docs/$', schema_view.with_ui('swagger',
             cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc',
             cache_timeout=0), name='schema-redoc'),
+    
 ]
