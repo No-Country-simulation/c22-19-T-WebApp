@@ -1,0 +1,84 @@
+
+  
+  .container {
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2e2146;
+    max-width: 100vw;
+  }
+  
+  .input-group {
+    position: relative; 
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px 45px 12px 15px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #2e2146;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+  
+  .input-group input:focus {
+    border-color: #7f5eff;
+  }
+  
+  .password-group {
+    position: relative; 
+  }
+  
+  #password-toggle{
+    position: absolute;
+    top: 50%;
+    padding: 0;
+    margin: 0;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #2c007d;
+    cursor: pointer;
+    font-size: 1.5rem;
+    outline: none;
+    width: auto;
+  }
+  
+  .password-toggle:hover {
+    color: #67528f;
+  }
+  
+  .ojo {
+    font-size: 1.2rem;
+  }
+  
+  .button {
+    width: 10%;
+    padding: 12px 15px;
+    background-color: #7f5eff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .button:hover {
+    background-color: #6a4ed1;
+  }
+
+  .error{
+    color: white;
+  }
