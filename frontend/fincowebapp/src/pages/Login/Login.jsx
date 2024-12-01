@@ -28,7 +28,7 @@ export const Login = () => {
           <button
             type="button"
             onClick={togglePassword}
-            className="password-toggle"
+            id="password-toggle"
             
           >
             {showPassword ? <IoMdEyeOff className="ojo" /> : <IoMdEye className="ojo"/>}
