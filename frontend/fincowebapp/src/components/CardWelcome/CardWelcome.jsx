@@ -40,19 +40,7 @@ export const CardWelcome = (props) => {
             <MdMoreVert className="menu-open-icon"  />
           </div>
           <ModalFilter isOpen={isModalOpen} onClose={closeModal} />
-          {/* 
-          <div className="cardwelcome__header-btn-menu">
-            <MdMoreVert className="menu-open-icon" onClick={handleMenuToggle} />
-            {isMenuOpen && (
-              <ul className="dropdown-menu">
-                <li onClick={() => handlePeriodChange("semanal")}>Semanal</li>
-                <li onClick={() => handlePeriodChange("mensual")}>Mensual</li>
-                <li onClick={() => handlePeriodChange("semestral")}>Semestral</li>
-                <li onClick={() => handlePeriodChange("anual")}>Anual</li>
-              </ul>
-            )}
-          </div>
-          */}
+          
         </div>
       </header>
       <div className="cardwelcome__content">
