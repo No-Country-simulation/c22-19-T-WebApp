@@ -18,6 +18,7 @@ env/
 #Django specific
 db.sqlite3
 media/
+portada/
 staticfiles/
 static/
 node_modules/
@@ -27,3 +28,6 @@ node_modules/
 *.pyc
 .pyo
 */migrations/00*.py
+
+# Otos
+.DS_Store
