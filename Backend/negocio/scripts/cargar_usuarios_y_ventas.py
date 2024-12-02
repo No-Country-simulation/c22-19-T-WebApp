@@ -75,14 +75,16 @@ def run(vendedores_length=50):
         user.perfil.sucursal = superior.perfil.sucursal
         user.perfil.save()
         Logger.body(f'Vendedores {i+1}')
-        
+
         # perfil = Perfil.objects.create(user=user, rol=ventas, sucursal=random.choice(sucursales))
         for j in range(random.randint(20, 50)):
-            total = random.randint(100, 5000)
+            # total = random.randint(100, 5000)
+            producto = random.choice(productos)
+            total = producto.price
             venta = Venta.objects.create(
                 user=user,
                 total=total,
-                producto=random.choice(productos),
+                producto=producto,
                 fecha=fecha_random([2024, 1, 1])
             )
     Logger.body(f'Vendedores {i+1}', end=True)
