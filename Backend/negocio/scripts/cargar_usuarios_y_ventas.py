@@ -22,7 +22,7 @@ def run(vendedores_length=50):
     if len(productos) == 0:
         productos = obtener_productos()
 
-    with open(DATA_DIR / 'nombres_y_apellidos.json', 'r') as file:
+    with open(DATA_DIR / 'nombres_y_apellidos.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
         Logger.title('Cargando Gerentes')
@@ -52,7 +52,7 @@ def run(vendedores_length=50):
 
     Logger.title('Cargando Vendedores y Ventas por Vendedor')
     for i in range(vendedores_length):
-        with open(DATA_DIR / 'nombres_y_apellidos.json', 'r') as file:
+        with open(DATA_DIR / 'nombres_y_apellidos.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             first_name = data[i]['first_name']
             last_name = data[i]['last_name']
@@ -75,9 +75,10 @@ def run(vendedores_length=50):
         user.perfil.sucursal = superior.perfil.sucursal
         user.perfil.save()
         Logger.body(f'Vendedores {i+1}')
-        total = 5000
+        
         # perfil = Perfil.objects.create(user=user, rol=ventas, sucursal=random.choice(sucursales))
         for j in range(random.randint(20, 50)):
+            total = random.randint(100, 5000)
             venta = Venta.objects.create(
                 user=user,
                 total=total,
