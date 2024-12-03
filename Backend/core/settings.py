@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'drf_yasg',
+    'django_extensions',
 
     #  Propias
     'negocio',
@@ -137,3 +138,27 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True # Sobreescribre CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    'http://127.0.0.1:5173',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
+CSRF_COOKIE_SAMESITE = 'None'  # Lax es lo más permisivo sin HTTPS
+CSRF_COOKIE_SECURE = False    # No requiere HTTPS
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_HTTPONLY = False  # Acceso desde JavaScript permitido
+CSRF_COOKIE_NAME = 'csrftoken'
+
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'x-csrftoken',
+]

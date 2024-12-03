@@ -1,9 +1,12 @@
 import "./Card_ventas_sucursales.css";
 import PropTypes from 'prop-types';
 
+/* 
+Pedro, cambie el export para poder incluirlo en el index de componentes.
+cuando puedas, mando los ultimos cambios que hiciste del login a la develope...
+  */
 
-
-const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_ventas }) => {
+export const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_ventas }) => {
   return (
     <div className="card">
       <div className="card-header">
@@ -28,4 +31,4 @@ Card_ventas_sucursales.propTypes = {
   ventas: PropTypes.number,          
   objetivo_ventas: PropTypes.number,
 };
-export default Card_ventas_sucursales
+//export default Card_ventas_sucursales
