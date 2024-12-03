@@ -92,8 +92,8 @@ export const ModalFilter = (props) => {
           <div className="modal_period-body-row">
             <div className="modal_period-body-column">
               <label htmlFor="current_periods" className={`modal_period-body-row__label ${timePeriod != 'semana' ? 'modal_period-body-row__label-hide' : ''}`}>
-                Últimas 4 semanas
-                <MdInfo />
+                Elige la semana
+                <MdInfo className="modal_period-body-row__icon"/>
               </label>
               <select className="modal_period-body-row__select" name="current_periods" id="current_periods">
                 {timePeriodsData.map((data) => (

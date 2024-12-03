@@ -32,15 +32,11 @@ export const CardWelcome = (props) => {
       <header className="cardwelcome__header">
         <h2 className="cardwelcome__header__title">👋🏼 Hola{` ${name}!`}</h2>
         <div className="cardwelcome__header__badge-filter-container">
-          <div className="badge-filter">
+          <div className="badge-filter cardwelcome__header-btn-menu" onClick={openModal}>
             <MdOutlineFilterAlt className="badge-filter-icon" />
             <span>{period}</span>
-          </div>
-          <div className="cardwelcome__header-btn-menu" onClick={openModal}>
-            <MdMoreVert className="menu-open-icon"  />
-          </div>
-          <ModalFilter isOpen={isModalOpen} onClose={closeModal} />
-          
+          </div>          
+          <ModalFilter isOpen={isModalOpen} onClose={closeModal} />          
         </div>
       </header>
       <div className="cardwelcome__content">
