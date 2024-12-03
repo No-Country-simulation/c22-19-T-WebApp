@@ -35,13 +35,18 @@ def run(vendedores_length=50):
             email = f"{username}@example.com"
             password = f"u_p12345"
 
-            user, _ = User.objects.get_or_create(
+            user, created = User.objects.get_or_create(
                 username=username,
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                password=password
+                defaults={
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email,
+                }
             )
+
+            if created:
+                user.set_password(password)
+                user.save()
 
             user.perfil.rol = gerencia
             user.perfil.sucursal = sucursal
@@ -62,13 +67,19 @@ def run(vendedores_length=50):
         # username = f"user{i+1}"
         email = f"{username}@example.com"
         password = f"u_p12345"
-        user, _ = User.objects.get_or_create(
+        user, created = User.objects.get_or_create(
             username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=password
+            defaults={
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email,
+            }
         )
+
+        if created:
+            user.set_password(password)
+            user.save()
+
         user.perfil.rol = ventas
         superior = random.choice(gerentes)
         user.perfil.superior = superior.perfil
