@@ -11,14 +11,23 @@ from .serializers import (
 )
 from django.contrib.auth.models import User
 
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
+
+
+def csrf_token_view(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})
+
 
 class UserLogin(APIView):
-    permission_classes = (permissions.AllowAny,) #Permisos que se le da la clase.
+    # Permisos que se le da la clase.
+    permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
     http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
 
     def post(self, request):
-        data = request.data #Usuario y contraseña
+        data = request.data  # Usuario y contraseña
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validate(data)
@@ -32,7 +41,8 @@ class UserLogout(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class UserView(APIView): #Datos del usuario, como ya vimos anteriormente en el archivo urls.py.
+# Datos del usuario, como ya vimos anteriormente en el archivo urls.py.
+class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
     http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
@@ -43,6 +53,7 @@ class UserView(APIView): #Datos del usuario, como ya vimos anteriormente en el a
         serializer_perfil = PerfilSerializer(perfil)
 
         data = {
-            'user': {**serializer_user.data, **serializer_perfil.data}# Para unir ambos diccionarios
+            # Para unir ambos diccionarios
+            'user': {**serializer_user.data, **serializer_perfil.data}
         }
         return Response(data, status=status.HTTP_200_OK)
