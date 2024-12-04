@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/"
 
+import { useAuth } from "../../context/AuthContext";
+
+
+
 export const Home = () => {
 /* Esta rama la cree para poder ir integrando las diferentes cards con los datos traidos de los endpoints */
 
@@ -15,6 +19,8 @@ const [loading, setLoading] = useState(true);
 const [filterPeriod, setFilterPeriod] = useState('mensual');
 const [searchText, setSearchText] = useState('');
 const [selectedIcon, SetSelectedIcon] = useState('building');
+
+const { auth, login } = useAuth();
 
 const getUserData = async () => {
   try {
@@ -45,7 +51,10 @@ const getBranchesData = async () => {
 
 const loadData = async () => {
   await Promise.all([getUserData(), getSalesData(), getBranchesData()]);
+  const response = await login({"username": "c2219twebapp", "password": "oF4EI5BWzc0wZZt"});
+  console.log(response); 
 }
+
 
 useEffect(() => {
   const fetchData = async () => {
@@ -82,7 +91,7 @@ useEffect(() => {
           <p>Visualiza las ventas realizadas.</p>         
 
           <CardWelcome 
-            name={currentUser.nombre}
+            name={auth.user.name}
             sales = {currentSales}
             period={filterPeriod}
             onChangePeriod = {setFilterPeriod}

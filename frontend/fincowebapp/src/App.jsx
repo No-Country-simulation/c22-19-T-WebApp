@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import { Home, Notfound, UnderConstruction, Login } from "./pages";
 
+import { AuthProvider } from "./context/AuthContext";
+
 function App() {   
 
   return (
     <>        
+     <AuthProvider>
       <Router  basename='/'>
         <Routes  >
           <Route path="/" element={<Home />}/>
@@ -17,7 +20,8 @@ function App() {
           <Route path="*" element={<Notfound />}/>  
           <Route path="login" element={<Login />}/>  
         </Routes>    
-      </Router>         
+      </Router>    
+      </AuthProvider>     
     </>
   )
 }
