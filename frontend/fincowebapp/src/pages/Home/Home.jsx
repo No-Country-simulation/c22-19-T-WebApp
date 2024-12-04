@@ -20,7 +20,7 @@ const [filterPeriod, setFilterPeriod] = useState('mensual');
 const [searchText, setSearchText] = useState('');
 const [selectedIcon, SetSelectedIcon] = useState('building');
 
-const { auth, login } = useAuth();
+const { auth, login, logout } = useAuth();
 
 const getUserData = async () => {
   try {
@@ -51,8 +51,8 @@ const getBranchesData = async () => {
 
 const loadData = async () => {
   await Promise.all([getUserData(), getSalesData(), getBranchesData()]);
-  const response = await login({"username": "c2219twebapp", "password": "oF4EI5BWzc0wZZt"});
-  console.log(response); 
+  const loginCorrect = await login({"username": "admin", "password": "admin"});  
+  console.log(`${loginCorrect ? 'usuario y contrasenia correctos.\n' : 'Usuario y/o contrasenias incorrectos.\n'}`);
 }
 
 
@@ -80,8 +80,10 @@ useEffect(() => {
   const filteredBranches =  selectedIcon === "building"
   ? currentBranches.filter((branch) => 
     branch.sucursal.toLowerCase().includes(searchText.toLowerCase())
-  ):[];
-  //console.log(currentSales)
+  ):[]; 
+  
+  
+ 
 
     return (
       <>
@@ -91,7 +93,7 @@ useEffect(() => {
           <p>Visualiza las ventas realizadas.</p>         
 
           <CardWelcome 
-            name={auth.user.name}
+            name={auth.user.username}
             sales = {currentSales}
             period={filterPeriod}
             onChangePeriod = {setFilterPeriod}
