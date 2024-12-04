@@ -18,7 +18,7 @@ const [selectedIcon, SetSelectedIcon] = useState('building');
 
 const getUserData = async () => {
   try {
-    const response = await axios.get(`http://localhost:5173/data/users.json`);      
+    const response = await axios.get(`./data/users.json`);      
     setCurrentUser(response.data[0]);
   } catch (error) {
     console.log(error);
@@ -27,7 +27,7 @@ const getUserData = async () => {
 
 const getSalesData = async () => {
   try {
-    const response2 = await axios.get(`http://localhost:5173/data/sales.json`);          
+    const response2 = await axios.get(`./data/sales.json`);          
     setCurrentSales(response2.data);    
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ const getSalesData = async () => {
 //https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/
 const getBranchesData = async () => {
   try {
-    const response3 = await axios.get(`http://localhost:5173/data/branches.json`);          
+    const response3 = await axios.get(`./data/branches.json`);          
     setCurrentBranches(response3.data);    
   } catch (error) {
     console.log(error);
