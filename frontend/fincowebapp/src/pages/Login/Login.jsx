@@ -13,9 +13,8 @@ export const Login = () => {
       <img src={logoLogin} alt="logo" />
       <div className="input-group">
         <input
-          type="email"
-          placeholder="Correo electrónico..."
-          autoComplete="email"
+          type="text"
+          placeholder="Nombre de usuario..."
         />
       </div>
       <div className="input-group">
