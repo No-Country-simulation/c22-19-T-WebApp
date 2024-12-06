@@ -11,14 +11,16 @@ class SucursalView(viewsets.ModelViewSet):
     queryset = Sucursal.objects.all()
     http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
 
+
 class VentaView(viewsets.ModelViewSet):
     serializer_class = VentaSerializer
     queryset = Venta.objects.all()
     http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
     permission_classes = [permissions.IsAuthenticated]
 
+
 class MetaView(viewsets.ModelViewSet):
     serializer_class = MetaSerializer
-    queryset = Meta.objects.all()   
+    queryset = Meta.objects.all()
     http_method_names = ['get', 'post', 'put', 'patch']  # Excluye 'delete'
     permission_classes = [permissions.IsAuthenticated]
