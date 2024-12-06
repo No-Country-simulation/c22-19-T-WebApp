@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       
       setAuth({ user: responseUserData.data.user, token: responseToken.data.csrfToken});
       localStorage.setItem("token", responseToken.data.csrfToken);
-      localStorage.setItem("user", responseUserData.data.user);
+      localStorage.setItem("user", JSON.stringify(responseUserData.data.user));
 
       return true;
     } catch (error) {

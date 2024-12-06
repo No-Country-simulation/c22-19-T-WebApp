@@ -12,7 +12,7 @@ export const Login = () => {
   const togglePassword = () => setShowPassword(!showPassword);
 
   const [credenciales, setCredenciales] = useState({
-    user: "",
+    username: "",
     password: "",
   });
 
@@ -28,9 +28,7 @@ export const Login = () => {
     e.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
     try {
-      console.log("Intentando iniciar sesión con:", credenciales);
-
-      // Llamada asíncrona a la función de login
+      console.log("Intentando iniciar sesión con:", credenciales);    
       const loginStatus = await login(credenciales);
 
       if (loginStatus) {
@@ -52,7 +50,7 @@ export const Login = () => {
         <input
           type="text"
           placeholder="Nombre de usuario..."
-          name="user"
+          name="username"
           value={credenciales.user}
           onChange={handleInputChange}
         />

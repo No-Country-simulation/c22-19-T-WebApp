@@ -1,28 +1,24 @@
-
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/"
 
-import { useAuth } from "../../context/AuthContext";
 import { useHome } from "../../context/HomeContext";
-
-
 
 export const Home = () => {
 /* Esta rama la cree para poder ir integrando las diferentes cards con los datos traidos de los endpoints */
 
-const [currentUser, setCurrentUser] = useState([]);
+
 const [currentBranches, setCurrentBranches] = useState([]);
-const [currentProducts, setCurrentProducs] = useState([]);
 const [currentSales, setCurrentSales] = useState([]);
 const [loading, setLoading] = useState(true);
+const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
 
 //const [filterPeriod, setFilterPeriod] = useState('mensual');
 const [searchText, setSearchText] = useState('');
 const [selectedIcon, SetSelectedIcon] = useState('building');
 
-const { auth, login, logout } = useAuth();
 const { filterDate } = useHome();
+
 
 const getUserData = async () => {
   try {
@@ -52,9 +48,8 @@ const getBranchesData = async () => {
 }
 
 const loadData = async () => {
-  await Promise.all([getUserData(), getSalesData(), getBranchesData()]);
-  const loginCorrect = await login({"username": "admin", "password": "admin"});  
-  console.log(`${loginCorrect ? 'usuario y contrasenia correctos.\n' : 'Usuario y/o contrasenias incorrectos.\n'}`);
+  await Promise.all([getSalesData(), getBranchesData()]);
+  
 }
 
 
@@ -83,7 +78,8 @@ useEffect(() => {
   ? currentBranches.filter((branch) => 
     branch.sucursal.toLowerCase().includes(searchText.toLowerCase())
   ):[];  
- console.log(currentSales);
+
+ console.log(JSON.parse(localStorage.getItem('user')));
 
  //HAcer el reduce para crear un filteredCurrentSales por la fecha de inicio y de fin.
 
@@ -95,7 +91,7 @@ useEffect(() => {
           <p>Visualiza las ventas realizadas.</p>         
 
           <CardWelcome 
-            name={auth.user.username}
+            name={currentUser.username}
             sales = {currentSales}
           />
 
