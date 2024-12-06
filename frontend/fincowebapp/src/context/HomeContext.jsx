@@ -5,7 +5,15 @@ const HomeContext = createContext(null);
 
 // Proveedor de datos del usuario
 export const HomeProvider = ({ children }) => {
-  const [filterDate, setFilterDate] = useState({ start: "01/11/2024", end: "30/11/2024", periodName: "semana", id: 2 });
+  const [filterDate, setFilterDate] = useState(
+    { start: "2024-11-01", 
+      end: "2024-11-30", 
+      periodName: "mes", 
+      idSemana: 1,
+      idMes: 11,
+      idAño: 1,
+     }
+  );
   const [filterBranch, setFilterBranch] = useState({id: null, name: ""});
   const [filterProduct, setFilterProduct] = useState({id: null, name: "", photo: ""});
   const [filterStaff, setFilterStaff] = useState({id: null, name: ""});

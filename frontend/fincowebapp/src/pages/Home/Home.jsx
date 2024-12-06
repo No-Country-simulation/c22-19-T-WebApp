@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/"
 
-import { useAuth } from "../../context/AuthContext";
+
 import { useHome } from "../../context/HomeContext";
+
 
 
 
 export const Home = () => {
 /* Esta rama la cree para poder ir integrando las diferentes cards con los datos traidos de los endpoints */
 
-const [currentUser, setCurrentUser] = useState([]);
+const [currentUser, setCurrentUser] = useState({username: 'Beatriz'});
 const [currentBranches, setCurrentBranches] = useState([]);
 const [currentProducts, setCurrentProducs] = useState([]);
 const [currentSales, setCurrentSales] = useState([]);
@@ -21,7 +22,7 @@ const [loading, setLoading] = useState(true);
 const [searchText, setSearchText] = useState('');
 const [selectedIcon, SetSelectedIcon] = useState('building');
 
-const { auth, login, logout } = useAuth();
+
 const { filterDate } = useHome();
 
 const getUserData = async () => {
@@ -35,11 +36,16 @@ const getUserData = async () => {
 
 const getSalesData = async () => {
   try {
-    const response2 = await axios.get(`./data/sales.json`);          
-    setCurrentSales(response2.data);    
-  } catch (error) {
-    console.log(error);
-  }
+    const response2 = await axios.get(`./data/sales_data.json`);           
+    const currentPeriodSales =  response2.data.filter(sale => sale.fecha >= filterDate.start && sale.fecha <= filterDate.end)    
+    const sumaValores = currentPeriodSales.reduce((acumulador, item) => {  
+        return acumulador + item.monto;    
+      }, 0);    
+      console.log(sumaValores);     
+      setCurrentSales(currentPeriodSales);    
+    } catch (error) {
+      console.log(error);
+    }
 }
 //https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursal/
 const getBranchesData = async () => {
@@ -52,9 +58,7 @@ const getBranchesData = async () => {
 }
 
 const loadData = async () => {
-  await Promise.all([getUserData(), getSalesData(), getBranchesData()]);
-  const loginCorrect = await login({"username": "admin", "password": "admin"});  
-  console.log(`${loginCorrect ? 'usuario y contrasenia correctos.\n' : 'Usuario y/o contrasenias incorrectos.\n'}`);
+  await Promise.all([ getSalesData(), getBranchesData()]);  
 }
 
 
@@ -70,7 +74,7 @@ useEffect(() => {
     }
   };
   fetchData();
-}, []);
+}, [filterDate]);
 
  if (loading) {
    return (
@@ -83,7 +87,7 @@ useEffect(() => {
   ? currentBranches.filter((branch) => 
     branch.sucursal.toLowerCase().includes(searchText.toLowerCase())
   ):[];  
- console.log(currentSales);
+ 
 
  //HAcer el reduce para crear un filteredCurrentSales por la fecha de inicio y de fin.
 
@@ -95,7 +99,7 @@ useEffect(() => {
           <p>Visualiza las ventas realizadas.</p>         
 
           <CardWelcome 
-            name={auth.user.username}
+            name={currentUser.username}
             sales = {currentSales}
           />
 
@@ -105,7 +109,7 @@ useEffect(() => {
             setSelectedIcon={SetSelectedIcon}
             selectedIcon={selectedIcon}
           />
-          {
+          {/*
           filteredBranches.map((filteredBranch, index) => (
             <Card_ventas_sucursales 
               key={`sucursal#${index}_filteredBranch.sucursal`}
@@ -115,8 +119,8 @@ useEffect(() => {
               objetivo_ventas={filteredBranch.objetivo_ventas}
             />
           )
-          )/**/
-          }       
+          )
+          */}       
         </main>
       </>
       );

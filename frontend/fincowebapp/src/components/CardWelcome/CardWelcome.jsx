@@ -8,13 +8,7 @@ import { useHome } from "../../context/HomeContext";
 export const CardWelcome = (props) => {
   const { name = "Usuario", sales } = props; 
   const { filterDate, setFilterDate } = useHome();
-  /*
-  const [currentSalesData, setCurrentSalesData] = useState(sales.find(sale => sale.period == filterDate.periodName));
 
-  const difference = currentSalesData.salesValue - currentSalesData.salesValuePrev;
-  const percentage = currentSalesData.salesValuePrev !== 0 ? (difference * 100) / currentSalesData.salesValuePrev : 0;
-  const formattedPercentage = percentage.toFixed(2);
-*/
 const difference = 10;
 const formattedPercentage = 10.2;
   const [isModalOpen, setModalOpen] = useState(false);
