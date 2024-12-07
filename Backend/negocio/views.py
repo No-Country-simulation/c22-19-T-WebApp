@@ -1,5 +1,5 @@
 from .filters import ModelViewSetFiltered
-from .filters import VENTA
+from .filters import VENTA, SUCURSAL
 from rest_framework import permissions
 
 from .models import Sucursal, Venta, Meta
@@ -11,6 +11,16 @@ class SucursalView(ModelViewSetFiltered):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Sucursal.objects.all()
     http_method_names = ['get']
+
+    filter_object = SUCURSAL
+
+    # def get_serializer_context(self):
+    #     """
+    #     Añade el contexto de la solicitud al serializador.
+    #     """
+    #     context = super().get_serializer_context()
+    #     context.update({'request': self.request})
+    #     return context
 
 
 class VentaView(ModelViewSetFiltered):

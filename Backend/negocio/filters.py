@@ -14,7 +14,10 @@ VENTA = {
 }
 
 SUCURSAL = {
-
+    'allowed_filters': {
+        # 'start_date': 'fecha__gte',  # start_date se traduce a fecha >=
+        # 'end_date': 'fecha__lte',
+    }
 }
 
 
@@ -100,14 +103,17 @@ class ModelViewSetFiltered(viewsets.ModelViewSet):
 
         if self.filter_object is not None:  # Verifica si hay configuraciones de filtros
             # Filtros permitidos
-            allowed_filters = self.filter_object['allowed_filters']
+            allowed_filters = self.filter_object.get('allowed_filters', None)
             # Campos de orden permitidos
-            allowed_order_fields = self.filter_object['allowed_order_fields']
+            allowed_order_fields = self.filter_object.get(
+                'allowed_order_fields', None)
             # Obtiene los parámetros de la solicitud (GET params)
             filters = self.request.query_params
-
             # Aplica filtros y ordenación al queryset
-            queryset = filter_queryset(queryset, filters, allowed_filters)
-            queryset = order_queryset(queryset, filters, allowed_order_fields)
+            if allowed_filters:
+                queryset = filter_queryset(queryset, filters, allowed_filters)
+            if allowed_order_fields:
+                queryset = order_queryset(
+                    queryset, filters, allowed_order_fields)
 
         return queryset
