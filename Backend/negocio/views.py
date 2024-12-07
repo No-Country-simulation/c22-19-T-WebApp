@@ -14,14 +14,6 @@ class SucursalView(ModelViewSetFiltered):
 
     filter_object = SUCURSAL
 
-    # def get_serializer_context(self):
-    #     """
-    #     Añade el contexto de la solicitud al serializador.
-    #     """
-    #     context = super().get_serializer_context()
-    #     context.update({'request': self.request})
-    #     return context
-
 
 class VentaView(ModelViewSetFiltered):
     serializer_class = VentaSerializer

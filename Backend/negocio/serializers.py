@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import Sum
 from .models import Sucursal, Meta, Venta, Perfil
 
 
@@ -97,12 +98,12 @@ class SucursalSerializer(serializers.ModelSerializer):
         start_date = request.query_params.get('start_date')
         end_date = request.query_params.get('end_date')
 
-        # Filtra las ventas asociadas a esta sucursal según el rango de fechas
-        ventas = Venta.objects.filter(sucursal=obj)
+        # Aplica el filtro de fechas en las ventas relacionadas
+        ventas = obj.ventas.all()  # Usa el related_name para obtener las ventas
         if start_date:
             ventas = ventas.filter(fecha__gte=start_date)
         if end_date:
             ventas = ventas.filter(fecha__lte=end_date)
 
         # Calcula el total de las ventas
-        return sum(venta.total for venta in ventas)
+        return ventas.aggregate(total=Sum('total')).get('total') or 0
