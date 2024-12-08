@@ -151,9 +151,9 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CSRF_COOKIE_SAMESITE = 'None'  # Lax es lo más permisivo sin HTTPS
-CSRF_COOKIE_SECURE = False    # No requiere HTTPS
+CSRF_COOKIE_SECURE = True    # No requiere HTTPS
 SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_HTTPONLY = False  # Acceso desde JavaScript permitido
 CSRF_COOKIE_NAME = 'csrftoken'
