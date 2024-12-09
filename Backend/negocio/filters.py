@@ -5,8 +5,8 @@ VENTA = {
     'allowed_filters': {
         'start_date': 'fecha__gte',  # start_date se traduce a fecha >=
         'end_date': 'fecha__lte',   # end_date se traduce a fecha <=
-        'total_min': 'total__gte',  # total_min se traduce a total >=
-        'total_max': 'total__lte',  # total_max se traduce a total <=
+        #  'total_min': 'total__gte',  # total_min se traduce a total >=
+        #  'total_max': 'total__lte',  # total_max se traduce a total <=
         #  'perfil': 'perfil__id',     # perfil filtra por el ID del perfil
         'sucursal': 'sucursal__id',
     },

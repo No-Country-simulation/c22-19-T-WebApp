@@ -4,9 +4,10 @@ from rest_framework import permissions
 
 from .models import Sucursal, Venta, Meta
 from .serializers import SucursalSerializer, VentaSerializer, MetaSerializer
+from .documentations import SucursalDocumentation, VentaDocumentation
 
 
-class SucursalView(ModelViewSetFiltered):
+class SucursalView(SucursalDocumentation, ModelViewSetFiltered):
     serializer_class = SucursalSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = Sucursal.objects.all()
@@ -15,7 +16,7 @@ class SucursalView(ModelViewSetFiltered):
     filter_object = SUCURSAL
 
 
-class VentaView(ModelViewSetFiltered):
+class VentaView(VentaDocumentation, ModelViewSetFiltered):
     serializer_class = VentaSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = Venta.objects.all()
