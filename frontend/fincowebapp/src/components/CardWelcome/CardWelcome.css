@@ -33,7 +33,8 @@
     position: relative;
 }
 .badge-filter{
-    background-color: #F0E5FE;
+    background-color: #4F46E5;
+    color:#FFFEFE;
     display: flex;
     align-items: center;
     padding: 2px 8px;
@@ -41,6 +42,7 @@
 }
 .badge-filter-icon{
     font-size: 1.4em;
+    color:#FFFEFE;
 }
 .menu-open-icon{
     font-size: 1.2em;    
@@ -53,7 +55,7 @@
     cursor: pointer;
 }
 .cardwelcome__header-btn-menu:hover{
-    background-color: #F0E5FE;
+    background-color: #332C49;
 }
 
 .cardwelcome__content{

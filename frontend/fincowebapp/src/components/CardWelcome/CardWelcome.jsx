@@ -1,28 +1,29 @@
 import { useState } from "react";
 import { FaChartLine, FaArrowUp, FaArrowDown } from "react-icons/fa";
-import { MdMoreVert, MdOutlineFilterAlt } from "react-icons/md";
+import { MdMoreVert, MdOutlineFilterAlt, MdWidthFull } from "react-icons/md";
 import "./CardWelcome.css";
+import { ModalFilter } from "./ModalFilter";
+
 
 export const CardWelcome = (props) => {
-  const { name = "Usuario", sales, period = "mensual", onChangePeriod } = props;
+  const { name = "Usuario", sales, period = "mensual", onChangePeriod } = props; 
   
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSalesData, setCurrentSalesData] = useState(sales.find(sale => sale.period == period));
 
   const difference = currentSalesData.salesValue - currentSalesData.salesValuePrev;
   const percentage = currentSalesData.salesValuePrev !== 0 ? (difference * 100) / currentSalesData.salesValuePrev : 0;
   const formattedPercentage = percentage.toFixed(2);
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+  
 
   const handlePeriodChange = (newPeriod) => {
     onChangePeriod(newPeriod);
-    setCurrentSalesData(sales.find(sale => sale.period == newPeriod));
-    setIsMenuOpen(false); // Cierra el menú al seleccionar un período
-    
-  };
+    setCurrentSalesData(sales.find(sale => sale.period == newPeriod));        
+  };  
 
   //console.log(currentSalesData);
 
@@ -31,21 +32,11 @@ export const CardWelcome = (props) => {
       <header className="cardwelcome__header">
         <h2 className="cardwelcome__header__title">👋🏼 Hola{` ${name}!`}</h2>
         <div className="cardwelcome__header__badge-filter-container">
-          <div className="badge-filter">
+          <div className="badge-filter cardwelcome__header-btn-menu" onClick={openModal}>
             <MdOutlineFilterAlt className="badge-filter-icon" />
             <span>{period}</span>
-          </div>
-          <div className="cardwelcome__header-btn-menu">
-            <MdMoreVert className="menu-open-icon" onClick={handleMenuToggle} />
-            {isMenuOpen && (
-              <ul className="dropdown-menu">
-                <li onClick={() => handlePeriodChange("semanal")}>Semanal</li>
-                <li onClick={() => handlePeriodChange("mensual")}>Mensual</li>
-                <li onClick={() => handlePeriodChange("semestral")}>Semestral</li>
-                <li onClick={() => handlePeriodChange("anual")}>Anual</li>
-              </ul>
-            )}
-          </div>
+          </div>          
+          <ModalFilter isOpen={isModalOpen} onClose={closeModal} />          
         </div>
       </header>
       <div className="cardwelcome__content">
@@ -66,6 +57,7 @@ export const CardWelcome = (props) => {
           </p>
         </div>
       </div>
+      
     </section>
   );
 };
