@@ -33,9 +33,12 @@ export const DialogFilter = ({ open, onClose }) => {
         <div>
           <p className='tittle'>Ubicación</p>
           <div className='content-ubi'>
-            <div className='estado'>
+            <div className='estado'  onClick={() => handleArrowClick(setStateArrowOpen)}>
             <p className='text'>Estado</p>
-            <p className='arrow' onClick={() => handleArrowClick(setStateArrowOpen)}>
+            {!stateArrowOpen && selectedState && (
+            <p className="elegido">Elegido</p>
+              )}
+            <p className='arrow'>
               {stateArrowOpen ?  <FaChevronUp />: <FaChevronDown />}
             </p>            
             </div>
@@ -45,16 +48,19 @@ export const DialogFilter = ({ open, onClose }) => {
                   <RadioSelect
                     key={option}
                     label={option}
-                    name="estado" // Importante: todos los radio buttons comparten el mismo "name"
+                    name="estado" // : todos los radio buttons comparten el mismo "name"
                     checked={selectedState === option}
                     onChange={(e) => setSelectedState(option)}
                   />
                 ))}
               </div>
             )}
-            <div className='ciudad'>
-            <p className='text'>Ciudad</p>
-            <p className='arrow' onClick={() => handleArrowClick(setCityArrowOpen)}>
+            <div className='ciudad' onClick={() => handleArrowClick(setCityArrowOpen)} >
+            <p className='text' >Ciudad</p>
+            {!stateArrowOpen && selectedState && (
+            <p className="elegido">Elegido</p>
+              )}
+            <p className='arrow'>
               {cityArrowOpen ? <FaChevronUp /> : <FaChevronDown />}
             </p>
             </div>
@@ -64,7 +70,7 @@ export const DialogFilter = ({ open, onClose }) => {
                   <RadioSelect
                     key={option}
                     label={option}
-                    name="estado" // Importante: todos los radio buttons comparten el mismo "name"
+                    name="estado" // : todos los radio buttons comparten el mismo "name"
                     checked={selectedState === option}
                     onChange={(e) => setSelectedState(option)}
                   />
@@ -77,9 +83,12 @@ export const DialogFilter = ({ open, onClose }) => {
         <div>
           <p className='tittle'>Logros</p>
           <div className='content-log'>
-          <div className='estado'>
-            <p className='text'>Mentas</p>
-            <p className='arrow' onClick={() => handleArrowClick(setAchievementArrowOpen)}>
+          <div className='estado' onClick={() => handleArrowClick(setAchievementArrowOpen)}  >
+            <p className='text' >Mentas</p>
+            {!stateArrowOpen && selectedState && (
+            <p className="elegido">Elegido</p>
+              )}
+            <p className='arrow' >
               {achievementArrowOpen ? <FaChevronUp />: <FaChevronDown />}
             </p>           
             </div>
@@ -88,9 +97,12 @@ export const DialogFilter = ({ open, onClose }) => {
                  <InteractiveProgressBar></InteractiveProgressBar>
               </div>
             )}
-            <div className='ciudad'>
-            <p className='text'>Ventas</p>
-            <p className='arrow' onClick={() => handleArrowClick(setSalesArrowOpen)}>
+            <div className='ciudad' onClick={() => handleArrowClick(setSalesArrowOpen)} >
+            <p className='text' >Ventas</p>
+            {!stateArrowOpen && selectedState && (
+            <p className="elegido">Elegido</p>
+              )}
+            <p className='arrow' >
               {salesArrowOpen ? <FaChevronUp /> : <FaChevronDown />}
             </p>
             </div>
