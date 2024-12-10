@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/"
@@ -14,16 +13,16 @@ export const Home = () => {
 
 const [currentUser, setCurrentUser] = useState({username: 'Beatriz'});
 const [currentBranches, setCurrentBranches] = useState([]);
-const [currentProducts, setCurrentProducs] = useState([]);
 const [currentSales, setCurrentSales] = useState([]);
 const [loading, setLoading] = useState(true);
+const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
 
 //const [filterPeriod, setFilterPeriod] = useState('mensual');
 const [searchText, setSearchText] = useState('');
 const [selectedIcon, SetSelectedIcon] = useState('building');
 
-
 const { filterDate } = useHome();
+
 
 const getUserData = async () => {
   try {
