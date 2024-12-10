@@ -4,13 +4,19 @@ import { FaHome,FaRegBuilding,FaUserTie,FaList,FaRegBell,FaSignOutAlt    } from 
 import LOGO from "../../assets/Logo.png";
 import { MdOutlineNotifications } from "react-icons/md";
 import { useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+
+
 export const Header = () => {
+
+  const { logout } = useAuth();
 
   const navigate = useNavigate();
   
-  const logout = () => {
-    localStorage.removeItem("user");
-    navigate("/login"); 
+  const handleLogout = () => {
+    const isLogout = logout()
+    if (isLogout) return navigate("/login"); 
+    alert('No se pudo llevar a cabo el logout')
   };
 
   useEffect(() => {
@@ -41,7 +47,7 @@ export const Header = () => {
                </div>
    <div className="navbar-child-second">
                        
-   <button onClick={()=> logout()}>
+   <button onClick={()=> handleLogout()}>
             <i><FaSignOutAlt /></i>Cerrar sesión
           </button>
                       <Link to="/staff"><i><FaUserTie/></i>Mi cuenta</Link>
