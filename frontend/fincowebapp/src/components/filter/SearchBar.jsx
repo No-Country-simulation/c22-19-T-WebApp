@@ -62,7 +62,8 @@ export function SearchBar({ setSearchText, searchText,  setSelectedIcon, selecte
                 <button className="searchBar-button-Filter"
                 onClick={handleClickOpen}
                 >
-                    <FaFilter className="icon" /></button>
+                    <FaFilter className="icon" />
+                </button>
                     <DialogFilter open={open} onClose={handleClose}></DialogFilter>
             </div>
         </div>

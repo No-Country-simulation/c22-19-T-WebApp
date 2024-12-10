@@ -1,0 +1,19 @@
+.radio-select-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%; 
+    box-sizing: border-box; 
+  }
+  
+  .radio-select-label {
+    flex-grow: 1; 
+    text-align: left; 
+   
+  }
+  
+  .input-radio {
+    margin-left: auto; 
+    margin-right: 10px;
+  }
+  
