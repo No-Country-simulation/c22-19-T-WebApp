@@ -95,7 +95,7 @@ class Venta(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
     sucursal = models.ForeignKey(
-        Sucursal, on_delete=models.CASCADE, null=True, blank=True
+        Sucursal, on_delete=models.CASCADE, null=True, blank=True, related_name='ventas'
     )
     total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha = models.DateField()

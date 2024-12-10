@@ -42,7 +42,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    height: 75%;
+    height: 72%;
     margin: 55px 0 0 0;
     
 }
@@ -97,8 +97,39 @@
     transition: 0.2s;
     text-decoration: none;
     font-weight: 600;
+    
 
 }
+
+
+.navbar-child-second button {
+    display: flex;
+    align-items: center;
+    color: #968AB6;
+    width: 170px;
+    padding: 15px 0 15px 15px;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 14px;
+    transition: 0.2s;
+   text-decoration: none;
+   font-weight: 600;
+   background: none;
+}
+
+
+.navbar-child-second button:hover{
+    background: none;
+    scale: 1.1;
+    color: #ffffff;
+    transition: 0.2s;
+    }
+
+    .navbar-child-second button:active{
+      color: #4F46E5;
+      transition: 0s;
+    }
+
 .navbar-child-second a:hover{
 scale: 1.1;
 color: #ffffff;
