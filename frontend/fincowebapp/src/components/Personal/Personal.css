@@ -1,0 +1,78 @@
+.box-personal{
+    position: absolute;
+    width: 1000px;
+    margin: 0 0 0 30%;
+}
+.box-personal-title{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding: 30px 0 0 0px;
+    font-size: 24px;
+    color:  #252525;
+}
+.box-personal-title i{
+    font-size: 20px;
+    padding: 0 5px 0 0;
+    color: #a093b3;
+}
+.box-personal-description{
+    text-align: start;
+    color: #a093b3;
+}
+.box-personal-filter{
+    text-align: start;
+    padding: 20px 0 0 0;
+}
+.box-personal-filter input{
+    width: 800px;
+    padding: 10px;
+    border-radius: 7px;
+    border: 2px solid #e6e6e6;
+    font-size: 16px;
+}
+.box-personal-card{
+    text-align: start;
+    padding: 20px 0 0 0;
+    border: 1px solid #dad9d9;
+    width: 800px;
+    margin:20px 0 0 0;
+    border-radius: 7px;
+}
+.box-personal-card-child{
+    border: 2px solid #e6e6e6;
+    margin: 0px 25px 15px 25px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+.box-personal-card-child-title{
+    padding: 15px 0 0 15px;
+font-size: 18px;
+color:  #3f3f3f;
+}
+.box-personal-card-child-title i{
+    font-size: 16px;
+    padding: 0 5px 0 0;
+    color: #a093b3;
+}
+.box-personal-card-child-description{
+    padding: 0px 0 0 15px;
+    font-size: 14px;
+    color: #a093b3;
+
+   
+}
+.box-personal-card-child-description i{
+padding: 0px 0 0 20px;
+}
+.box-personal-card-child-icons{
+    text-align: end;
+    padding: 0px 5px 20px 0;
+}
+.box-personal-card-child-icons span{
+    padding: 7px 15px 7px 15px;
+    background:rgb(208, 255, 207);
+    margin: 0 10px 0px 0;
+    border-radius: 5px;
+    color: #353535;
+}
