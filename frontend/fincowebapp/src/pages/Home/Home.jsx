@@ -77,9 +77,11 @@ export const Home = () => {
           salesByPeriod: totalSales.toFixed(2),
         };
       });
-      setFilteredBranches(updatedFilteredBranches);
+      console.log(searchText)
+      const filteredByText = updatedFilteredBranches.filter(branch => branch.name.toLowerCase().includes(searchText.toLowerCase()));
+      setFilteredBranches(filteredByText);
     }
-  }, [currentBranches, currentSales]);
+  }, [currentBranches, currentSales, searchText]);
 
   if (loading) {
     return <div>Cargando...</div>;
