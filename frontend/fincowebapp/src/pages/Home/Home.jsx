@@ -15,7 +15,7 @@ const [currentUser, setCurrentUser] = useState({username: 'Beatriz'});
 const [currentBranches, setCurrentBranches] = useState([]);
 const [currentSales, setCurrentSales] = useState([]);
 const [loading, setLoading] = useState(true);
-const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
+//const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
 
 //const [filterPeriod, setFilterPeriod] = useState('mensual');
 const [searchText, setSearchText] = useState('');
