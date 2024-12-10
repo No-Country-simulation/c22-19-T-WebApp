@@ -1,10 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 import "./Header.css";
-import { FaHome,FaRegBuilding,FaUserTie,FaList,FaRegBell   } from "react-icons/fa";
+import { FaHome,FaRegBuilding,FaUserTie,FaList,FaRegBell,FaSignOutAlt    } from "react-icons/fa";
 import LOGO from "../../assets/Logo.png";
 import { MdOutlineNotifications } from "react-icons/md";
+import { useEffect } from "react";
 export const Header = () => {
-    return (
+
+  const navigate = useNavigate();
+  
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/login"); 
+  };
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("user"));
+    if (!usuario) {
+      navigate("/login"); 
+    }
+  }, [navigate]);
+  
+  return (
         <aside className="aside">
          
           <nav className="navbar" >
@@ -25,8 +41,9 @@ export const Header = () => {
                </div>
    <div className="navbar-child-second">
                        
-                      <Link to="/branches"><i><FaList /></i>Menu</Link>
-                      
+   <button onClick={()=> logout()}>
+            <i><FaSignOutAlt /></i>Cerrar sesión
+          </button>
                       <Link to="/staff"><i><FaUserTie/></i>Mi cuenta</Link>
                           </div>
                   
