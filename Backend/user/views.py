@@ -65,6 +65,19 @@ class UserLogin(APIView):
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validate(data)
+            
+            # Verificar si el usuario tiene un perfil con rol asignado
+            perfil = getattr(user, 'perfil', None)  # Relación OneToOne
+            rol = getattr(perfil, 'rol', None) if perfil else None
+            
+            # Si el usuario tiene un rol y este es 'ventas', denegar acceso
+            if rol and rol.nombre.lower() == 'ventas':
+                return Response(
+                    {"error": "Acceso denegado. Los usuarios del rol 'ventas' no pueden iniciar sesión en esta app."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+                
+            # si todo está ok, el usuario obtiene el acceso
             login(request, user)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
