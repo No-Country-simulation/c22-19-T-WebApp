@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Header, CardWelcome, SearchBar, Card_ventas_sucursales, Card_ventas_productos } from "../../components/";
 import { useHome } from "../../context/HomeContext";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons';
+import "./Home.css"
 export const Home = () => {
   const [currentUser, setCurrentUser] = useState({ username: 'Default' });
   const [currentBranches, setCurrentBranches] = useState([]);
@@ -99,7 +101,7 @@ export const Home = () => {
   }, [currentBranches, currentSales, searchText]);
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
   }
 
   //console.log(currentSalesTotal, prevSalesTotal)

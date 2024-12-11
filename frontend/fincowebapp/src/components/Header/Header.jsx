@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation  } from "react-router-dom";
 import "./Header.css";
 import { FaHome, FaRegBuilding, FaUserTie, FaList, FaRegBell, FaSignOutAlt } from "react-icons/fa";
 import LOGO from "../../assets/Logo.png";
@@ -6,7 +6,7 @@ import { MdOutlineNotifications } from "react-icons/md";
 import { useEffect, useState } from "react";
 export const Header = () => {
 
-
+  const location = useLocation();
   const [abrirP, setAbrirP] = useState(false)
 
 
@@ -18,12 +18,12 @@ export const Header = () => {
     navigate("/login");
   };
 
-    useEffect(() => {
+ /*    useEffect(() => {
       const usuario = JSON.parse(localStorage.getItem("user"));
       if (!usuario) {
         navigate("/login"); 
       }
-    }, [navigate]);
+    }, [navigate]); */
 
   return (
     <aside className="aside">
@@ -36,14 +36,27 @@ export const Header = () => {
 
 
         <div className="navbar-child">
+  <Link 
+    to="/" 
+    className={location.pathname === "/" ? "navbar-child-activado" : ""}
+  >
+    <i><FaHome /></i>Home
+  </Link>
 
-          <Link to="/" ><i><FaHome /></i>Home</Link>
+  <Link 
+    to="/branches" 
+    className={location.pathname === "/branches" ? "navbar-child-activado" : ""}
+  >
+    <i><FaRegBuilding /></i>Sucursales
+  </Link>
 
-          <Link to="/branches" ><i><FaRegBuilding /></i>Sucursales</Link>
-
-          <Link to="/staff"><i><FaUserTie /></i>Personal</Link>
-
-        </div>
+  <Link 
+    to="/staff" 
+    className={location.pathname === "/staff" ? "navbar-child-activado" : ""}
+  >
+    <i><FaUserTie /></i>Personal
+  </Link>
+</div>
         <div className="navbar-child-second">
 
 
@@ -52,9 +65,9 @@ export const Header = () => {
 
         </div>
 
-        {abrirP && (
+      
           <>
-            <div className="box-logout">
+            <div className={abrirP?"box-logout-true":"box-logout"}>
               <div className="box-logout-close">
                 <button onClick={() => setAbrirP(!abrirP)}>X</button>
               </div>
@@ -62,7 +75,7 @@ export const Header = () => {
                 <i><FaUserTie></FaUserTie></i>
               </div>
               <div className="box-logout-email">
-                Correo@gmail.com
+                Valentina Garcia
               </div>
               <div className="box-logout-button">
                 <button onClick={() => logout()}>
@@ -72,7 +85,7 @@ export const Header = () => {
             </div>
 
           </>
-        )}
+      
 
       </nav>
     </aside>

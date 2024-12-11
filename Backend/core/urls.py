@@ -18,21 +18,40 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
         title="API Documentation",
         default_version='v1',
         description="""
-            Prueba de Documentacion
+            Documentación de la API del projecto de la simulación laboral en **No-Country**
+
+            **Frontend**: https://c22-19-t-webapp.onrender.com/
+
+            **Info**: Todas las solicitudes protegidas realizadas desde otro dominio habilitado\
+                requieren la cabecera `X-CSRFToken`.
+
+            **Nota**: En caso de no ver los _endpoints_ de negocio, se puede usar el _endpoint_ de **login**
+
+            **Integrantes**:
+            - Carolina Acosta | _Backend_ | caritos22@hotmail.com
+            - Cesar Hernán Ruscica | _Frontend_ | cesarhernanruscica@gmail.com
+            - Claudia López Garcidueñas | _UX|UI_ | kyaclo.82@gmail.com
+            - Elvin Moreno | _Frontend_ | elvinmoreno2301@gmail.com
+            - Ignacio Nava | _Backend_ | nava_ignacio@outlook.com
+            - Joel Aguilar | _Backend_ | joelaguilarandres@gmail.com
+            - León Mateo Cáceres | _Backend_ | leonmateocaceres705@gmail.com
+            - Pedro Tarragó | _Frontend_ | pepoterrax@gmail.com
+            - Tomás Villegas | _Frontend_ | tomasvil2125@gmail.com
         """,
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@example.com"),
-        license=openapi.License(name="BSD License"),
+        # terms_of_service="https://www.google.com/policies/terms/",
+        # contact=openapi.Contact(email="contact@example.com"),
+        # license=openapi.License(name="BSD License"),
     ),
     public=False,  # Hace que la documentación no sea pública
     # Solo usuarios administradores pueden verla
-    #  permission_classes=[permissions.IsAdminUser],
+    # permission_classes=[permissions.IsAdminUser],
 )
 
 urlpatterns = [
@@ -41,7 +60,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     re_path(r'^docs/$', schema_view.with_ui('swagger',
             cache_timeout=0), name='schema-swagger-ui'),
-    re_path(r'^redoc/$', schema_view.with_ui('redoc',
-            cache_timeout=0), name='schema-redoc'),
-    
+    # re_path(r'^redoc/$', schema_view.with_ui('redoc',
+    #         cache_timeout=0), name='schema-redoc'),
+
 ]

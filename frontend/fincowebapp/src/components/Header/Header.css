@@ -50,7 +50,6 @@
 .navbar-child a {
     display: flex;
     align-items: center;
-    color: #968AB6;
     width: 170px;
     padding: 6px 0 6px 15px;
     border-radius: 8px;
@@ -59,14 +58,17 @@
     transition: 0.2s;
    text-decoration: none;
    font-weight: 600;
+   color: #968AB6;
 }
+
+
 
 .navbar-child i {
     font-size: 24px;
     padding: 0px 15px 0 0;
 }
 
-.navbar-child a:focus {
+.navbar-child-activado {
     background: #4F46E5;
     color: #ffffff;
 }
@@ -137,6 +139,20 @@ transition: 0.2s;
  margin: -365px 0 0 100px;
  border-radius: 10px;
  box-shadow: 0 0 10px #868686;
+    scale:0;
+    transition: 0.3s;
+}
+.box-logout-true{
+    position: flex;
+    z-index: 200;
+    width: 350px;
+    height: 300px;
+    background: #ffffff;
+ margin: -365px 0 0 100px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px #868686;
+ scale: 1;
+ transition: 0.3s;
 }
 .box-logout-close{
  display: flex;
@@ -177,8 +193,8 @@ transition: 0.2s;
     margin: 30px 0 0 0;
 }
 .box-logout-button button{
-    color: #261ddb;
-    border: 2px solid #261ddb;
+    color: #661ddb;
+    border: 2px solid #761ddb;
     width: 300px;
     padding: 8px 0 8px 5px;
     border-radius: 8px;
@@ -191,7 +207,7 @@ transition: 0.2s;
    text-align: center;
 }
 .box-logout-button button:hover{
-    background: #261ddb;
+    background: #561ddb;
     color: #ffffff;
 }
 
