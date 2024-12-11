@@ -89,6 +89,9 @@ export const Home = () => {
 
   return (
     <>
+    
+
+    
       <Header />
       <main>
         <h2>Ventas</h2>
@@ -116,6 +119,7 @@ export const Home = () => {
           />
         ))}
       </main>
+
     </>
   );
 };
