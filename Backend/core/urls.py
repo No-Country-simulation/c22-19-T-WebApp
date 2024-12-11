@@ -25,12 +25,17 @@ schema_view = get_schema_view(
         title="API Documentation",
         default_version='v1',
         description="""
-            Documentación de la API dal projecto **No-Country**
+            Documentación de la API del projecto de la simulación laboral en **No-Country**
 
-            **Nota**: Todas las solicitudes protegidas requieren la cabecera `X-CSRFToken`.
+            **Frontend**: https://c22-19-t-webapp.onrender.com/
+
+            **Info**: Todas las solicitudes protegidas realizadas desde otro dominio habilitado\
+                requieren la cabecera `X-CSRFToken`.
+
+            **Nota**: En caso de no ver los _endpoints_ de negocio, se puede usar el _endpoint_ de **login**
 
             **Integrantes**:
-            - Carolina Acosta | _Backend_ | test@gmail.com
+            - Carolina Acosta | _Backend_ | caritos22@hotmail.com
             - Cesar Hernán Ruscica | _Frontend_ | cesarhernanruscica@gmail.com
             - Claudia López Garcidueñas | _UX|UI_ | kyaclo.82@gmail.com
             - Elvin Moreno | _Frontend_ | elvinmoreno2301@gmail.com

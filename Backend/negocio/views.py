@@ -4,7 +4,7 @@ from rest_framework import permissions
 
 from .models import Sucursal, Venta, Meta
 from .serializers import SucursalSerializer, VentaSerializer, MetaSerializer
-from .documentations import SucursalDocumentation, VentaDocumentation
+from .documentations import SucursalDocumentation, VentaDocumentation, MetaDocumentation
 
 
 class SucursalView(SucursalDocumentation, ModelViewSetFiltered):
@@ -25,7 +25,7 @@ class VentaView(VentaDocumentation, ModelViewSetFiltered):
     filter_object = VENTA
 
 
-class MetaView(ModelViewSetFiltered):
+class MetaView(MetaDocumentation, ModelViewSetFiltered):
     serializer_class = MetaSerializer
     queryset = Meta.objects.all()
     http_method_names = ['get']
