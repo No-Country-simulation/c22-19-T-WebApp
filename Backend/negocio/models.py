@@ -128,9 +128,14 @@ class Venta(models.Model):
 
 
 class Meta(models.Model):
-    cantidad = models.DecimalField(max_digits=12, decimal_places=2)
-    sucursal = models.ForeignKey(
-        Sucursal, on_delete=models.CASCADE, null=True, blank=True)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    sucursal = models.OneToOneField(
+        Sucursal, on_delete=models.CASCADE, related_name="meta", null=True)
+    updated_at = models.DateTimeField(auto_now=True)
     create_at = models.DateTimeField(auto_now_add=True)
+    semanal = models.DecimalField(max_digits=12, decimal_places=2)
+    mensual = models.DecimalField(max_digits=12, decimal_places=2)
+    anual = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        sucursal_nombre = self.sucursal.nombre if self.sucursal is not None else "No Asignada"
+        return f"Metas de para la sucursal: {sucursal_nombre}"

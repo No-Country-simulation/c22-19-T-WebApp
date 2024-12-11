@@ -1,13 +1,8 @@
 from rest_framework import serializers
 from django.db.models import Sum
 from .models import Sucursal, Meta, Venta, Perfil
+from datetime import datetime, timedelta
 
-
-# class SucursalSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Sucursal
-#         fields = '__all__'
-#         http_method_names = ['get']
 
 class VentaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,10 +12,56 @@ class VentaSerializer(serializers.ModelSerializer):
 
 
 class MetaSerializer(serializers.ModelSerializer):
+
+    acumulado_semanal = serializers.SerializerMethodField()
+    acumulado_mensual = serializers.SerializerMethodField()
+    acumulado_anual = serializers.SerializerMethodField()
+
     class Meta:
         model = Meta
-        fields = '__all__'
-        http_method_names = ['get']
+        fields = ['id', 'sucursal',
+                  'semanal', 'mensual', 'anual', 'acumulado_semanal', 'acumulado_mensual', 'acumulado_anual']
+
+    def calcular_acumulado(self, sucursal_id, fecha_inicio, fecha_fin):
+        """
+        Calcula el acumulado de ventas para una sucursal en un rango de fechas.
+        """
+        ventas = Venta.objects.filter(
+            sucursal_id=sucursal_id,
+            fecha__range=(fecha_inicio, fecha_fin)
+        ).aggregate(total=Sum('total'))
+        return ventas.get('total') or 0
+
+    def calcular_fechas(self, periodo):
+        """
+        Devuelve el rango de fechas según el período especificado.
+        """
+        hoy = datetime.now()
+
+        if periodo == 'mes':
+            fecha_inicio = hoy.replace(day=1)
+            fecha_fin = (hoy.replace(day=28) + timedelta(days=4)
+                         ).replace(day=1) - timedelta(days=1)
+        elif periodo == 'anio':
+            fecha_inicio = datetime(hoy.year, 1, 1)
+            fecha_fin = datetime(hoy.year, 12, 31)
+        else:  # Por defecto, período semanal
+            fecha_inicio = hoy - timedelta(days=hoy.weekday())
+            fecha_fin = fecha_inicio + timedelta(days=6)
+
+        return fecha_inicio, fecha_fin
+
+    def get_acumulado_semanal(self, obj):
+        fecha_inicio, fecha_fin = self.calcular_fechas('semana')
+        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
+
+    def get_acumulado_mensual(self, obj):
+        fecha_inicio, fecha_fin = self.calcular_fechas('mes')
+        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
+
+    def get_acumulado_anual(self, obj):
+        fecha_inicio, fecha_fin = self.calcular_fechas('anio')
+        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
 
 
 class PerfilSerializer(serializers.ModelSerializer):
