@@ -72,9 +72,16 @@ class Perfil(models.Model):
         return cadena
 
 
+class ProdcutCategory(models.Model):
+    nombre = models.CharField(max_length=255)
+
+
 class Producto(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    categoria = models.ForeignKey(
+        ProdcutCategory, on_delete=models.CASCADE, null=True, blank=True, related_name='productos'
+    )
     imagen = models.URLField(blank=True, unique=False)
     # imagen = models.ImageField(upload_to='portada')
     #  slug = models.SlugField(max_length=255, unique=True)
@@ -93,14 +100,14 @@ class Producto(models.Model):
 
 class Venta(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True)
+        User, on_delete=models.CASCADE, null=True, blank=True, related_name='ventas')
     sucursal = models.ForeignKey(
         Sucursal, on_delete=models.CASCADE, null=True, blank=True, related_name='ventas'
     )
     total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha = models.DateField()
     producto = models.ForeignKey(
-        Producto, on_delete=models.CASCADE, null=True, blank=True)
+        Producto, on_delete=models.CASCADE, null=True, blank=True, related_name='ventas')
 
     def clean(self):
 
