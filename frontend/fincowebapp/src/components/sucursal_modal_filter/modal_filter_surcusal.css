@@ -36,7 +36,7 @@
     cursor: pointer;
   }
   
-  /* Estilo para el botón de cierre */
+  /* Estilo para el botón de cierre 
   button {
     cursor: pointer;
     background-color: #007bff;
@@ -51,7 +51,7 @@
   button:hover {
     background-color: #0056b3;
   }
-  
+  */
   h3{
     color: #332C49
   }

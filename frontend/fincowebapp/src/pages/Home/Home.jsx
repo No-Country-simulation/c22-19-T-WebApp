@@ -4,15 +4,19 @@ import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../co
 import { useHome } from "../../context/HomeContext";
 
 export const Home = () => {
-  const [currentUser, setCurrentUser] = useState({ username: 'Beatriz' });
+  const [currentUser, setCurrentUser] = useState({ username: 'Default' });
   const [currentBranches, setCurrentBranches] = useState([]);
   const [filteredBranches, setFilteredBranches] = useState([]);
   const [currentSales, setCurrentSales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [selectedIcon, setSelectedIcon] = useState('building');
+  const [currentSalesTotal, setCurrentSalesTotal] = useState(0);
+  const [prevSalesTotal, setPrevSalesTotal] = useState(0);
 
   const { filterDate } = useHome();
+
+  
 
   const getSalesData = async () => {
     try {
@@ -27,6 +31,10 @@ export const Home = () => {
         }
       );
       setCurrentSales(response.data);
+      const totalSales = response.data.reduce((sum, sale) => sum + parseFloat(sale.total),0);      
+      const randomNumber = (Math.random() * 2 - 1).toFixed(2);
+      setCurrentSalesTotal(totalSales);
+      setPrevSalesTotal(totalSales + totalSales * randomNumber);
     } catch (error) {
       console.error("Error fetching sales data:", error);
     }
@@ -50,10 +58,16 @@ export const Home = () => {
     }
   };
 
+  const getCurrentUser = () => {
+    setCurrentUser(JSON.parse(localStorage.getItem("user")))
+    
+  }
+
   const loadData = async () => {
     setLoading(true);
     try {
       await Promise.all([getSalesData(), getBranchesData()]);
+      getCurrentUser();
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
@@ -62,7 +76,8 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    loadData();
+    loadData();    
+    
   }, [filterDate]);
 
   useEffect(() => {
@@ -77,7 +92,7 @@ export const Home = () => {
           salesByPeriod: totalSales.toFixed(2),
         };
       });
-      console.log(searchText)
+      //console.log(searchText)
       const filteredByText = updatedFilteredBranches.filter(branch => branch.name.toLowerCase().includes(searchText.toLowerCase()));
       setFilteredBranches(filteredByText);
     }
@@ -86,6 +101,8 @@ export const Home = () => {
   if (loading) {
     return <div>Cargando...</div>;
   }
+
+  //console.log(currentSalesTotal, prevSalesTotal)
 
   return (
     <>
@@ -99,7 +116,8 @@ export const Home = () => {
 
         <CardWelcome
           name={currentUser.username}
-          sales={currentSales}
+          sales={currentSalesTotal}
+          prevSales={prevSalesTotal}
         />
 
         <SearchBar
@@ -109,15 +127,27 @@ export const Home = () => {
           selectedIcon={selectedIcon}
         />
 
-        {filteredBranches.map((branch, index) => (
+        {filteredBranches.map((branch, index) => {
+          let objetivoVentas = 1000;
+          if (filterDate.periodName == 'semana'){
+            objetivoVentas = 250;
+          }
+          if (filterDate.periodName =='mes'){
+            objetivoVentas = 1500;
+          }
+          if (filterDate.periodName =='año'){
+            objetivoVentas = 20000;
+          }
+          return (
           <Card_ventas_sucursales
             key={`branch_${branch.id}`}
             sucursal={branch.name}
             localidad= {branch.city}
             ventas={branch.salesByPeriod}
-            objetivo_ventas="1000"
+            objetivo_ventas={objetivoVentas}
           />
-        ))}
+          )}
+        )}
       </main>
 
     </>

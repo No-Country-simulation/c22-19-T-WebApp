@@ -6,11 +6,11 @@ import { ModalFilter } from "./ModalFilter";
 import { useHome } from "../../context/HomeContext";
 
 export const CardWelcome = (props) => {
-  const { name = "Usuario", sales } = props; 
-  const { filterDate, setFilterDate } = useHome();
+  const { name = "Usuario", sales, prevSales } = props; 
+  const { filterDate } = useHome();
 
-const difference = 10;
-const formattedPercentage = 10.2;
+const difference = sales - prevSales ;
+const formattedPercentage = prevSales / sales;
   const [isModalOpen, setModalOpen] = useState(false);
 
 
@@ -34,8 +34,8 @@ const formattedPercentage = 10.2;
       </header>
       <div className="cardwelcome__content">
         <div className="cardwelcome__content__values">
-          <p id="sales_value" aria-label="Ventas actuales"></p>
-          <p id="sales_value_prev" aria-label="Ventas del período anterior">{` período ${filterDate.periodName} anterior`}</p>
+          <p id="sales_value" aria-label="Ventas actuales">{`$${sales.toFixed(2)}`}</p>
+          <p id="sales_value_prev" aria-label="Ventas del período anterior">{`$${prevSales.toFixed(2)} período ${filterDate.periodName} anterior`}</p>
         </div>
         <div className="cardwelcome__content__porcentage">
           <FaChartLine className="cardwelcome__content__porcentage__icon" />
@@ -43,10 +43,10 @@ const formattedPercentage = 10.2;
             className={
               difference > 0 ? "badge-porcentage increase_value" : "badge-porcentage decrease_value"
             }
-            aria-label={`Cambio porcentual de ventas: ${formattedPercentage}%`}
+            aria-label={`Cambio porcentual de ventas: ${formattedPercentage.toFixed(2)}%`}
           >
             {difference > 0 ? <FaArrowUp /> : <FaArrowDown />}
-            <span>{`${formattedPercentage}%`}</span>
+            <span>{`${formattedPercentage.toFixed(2)}%`}</span>
           </p>
         </div>
       </div>
