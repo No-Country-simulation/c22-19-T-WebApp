@@ -1,7 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from .serializers import SucursalSerializer, VentaSerializer
+from .serializers import SucursalSerializer, VentaSerializer, MetaSerializer
 
 
 class SucursalDocumentation:
@@ -144,6 +144,33 @@ class VentaDocumentation:
         ],
         responses={
             200: VentaSerializer(),
+            404: 'No se encontró la venta con el ID proporcionado',
+            401: 'No autorizado'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+
+class MetaDocumentation:
+    @swagger_auto_schema(
+        operation_summary="Listado de Metas",
+        operation_description="Obtiene el detalle las metas semanales, mensuales y anuales \
+            de cada sucursal. Obteniendo las metas pretendidas y las acumuladas.",
+        responses={
+            200: MetaSerializer(),
+            400: 'Solicitud inválida',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Venta por ID",
+        operation_description="Obtiene los detalles de una meta específica basada en su ID.",
+        responses={
+            200: MetaSerializer(),
             404: 'No se encontró la venta con el ID proporcionado',
             401: 'No autorizado'
         }
