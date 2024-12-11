@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Header, CardWelcome, SearchBar, Card_ventas_sucursales } from "../../components/";
+import { Header, CardWelcome, SearchBar, Card_ventas_sucursales, Card_ventas_productos } from "../../components/";
 import { useHome } from "../../context/HomeContext";
 
 export const Home = () => {
@@ -148,6 +148,12 @@ export const Home = () => {
           />
           )}
         )}
+        <Card_ventas_productos 
+          nombre="Linterna"
+          categoria="Herramientas"
+          ventas={154}
+          objetivo_ventas={300}
+        />
       </main>
 
     </>
