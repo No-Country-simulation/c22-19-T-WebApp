@@ -2,13 +2,6 @@ from rest_framework import serializers
 from django.db.models import Sum
 from .models import Sucursal, Meta, Venta, Perfil
 
-
-# class SucursalSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Sucursal
-#         fields = '__all__'
-#         http_method_names = ['get']
-
 class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
@@ -17,10 +10,40 @@ class VentaSerializer(serializers.ModelSerializer):
 
 
 class MetaSerializer(serializers.ModelSerializer):
+
+    acumulado_semanal = serializers.SerializerMethodField()
+    acumulado_mensual = serializers.SerializerMethodField()
+    acumulado_anual = serializers.SerializerMethodField()
+    
     class Meta:
         model = Meta
-        fields = '__all__'
-        http_method_names = ['get']
+        fields = ['id', 'sucursal',
+                  'semanal', 'mensual', 'anual', 'acumulado_semanal', 'acumulado_mensual', 'acumulado_anual']
+
+    
+    def get_acumulado_semanal(self, obj):
+        hoy =  datetime.now().date()
+        inicio_semana = hoy - timedelta(days=today.weekday())
+        fin_semana = inicio_semana + timedelta(days=6)
+        return ventas.obj.filter(fecha__gte=inicio_semana, fecha__lte=fin_semana).aggregate(total=Sum('monto'))['total'] or 0 
+    
+    def get_acumulado_mensual(self, obj):
+        today = timezone.localdate()
+        inicio_mes = today.replace(day=1)
+        fin_mes = (today.replace(day=28) + timedelta(days=4)).replace(day=1)
+        
+        return ventas.obj.filter(fecha__gte=start_of_month, fecha__lt=end_of_month).aggregate(total=Sum('monto'))['total'] or 0      
+
+    def get_acumulado_anual(self, obj):
+        today = timezone.localdate()
+        inicio_año = today.replace(month=1, day=1)
+        fin_año = today.replace(month=12, day=31)
+        
+        return ventas.obj.filter(fecha__gte=inicio_año, fecha__lte=fin_año).aggregate(total=Sum('monto'))['total'] or 0  
+
+
+
+
 
 
 class PerfilSerializer(serializers.ModelSerializer):
