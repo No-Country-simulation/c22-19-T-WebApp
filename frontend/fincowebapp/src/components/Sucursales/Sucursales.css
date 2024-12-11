@@ -2,7 +2,7 @@
     position: absolute;
     width: 1000px;
     margin: 0 0 0 30%;
-     
+    
 }
 
 
@@ -38,17 +38,23 @@
 .box-sucursal-card{
     text-align: start;
     padding: 20px 0 0 0;
-    border: 1px solid #dad9d9;
     width: 800px;
     margin:20px 0 0 0;
     border-radius: 7px;
+    background: #ffffff;
 }
 .box-sucursal-card-child{
     border: 2px solid #e6e6e6;
     margin: 0px 25px 15px 25px;
     background: #ffffff;
     border-radius: 5px;
-    
+    transition:  0.3s;
+    cursor: pointer;
+}
+.box-sucursal-card-child:hover{
+    transition:  0.3s;
+    background: rgba(240, 229, 254, 1);
+    scale: 1.05;
 }
 
 .box-sucursal-card-child-title{

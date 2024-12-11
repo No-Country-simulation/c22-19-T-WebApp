@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { HomeProvider } from "./context/HomeContext";
 import Sucursales from "./components/Sucursales/Sucursales";
 import Personal from "./components/Personal/Personal";
+import DetalleSucursal from "./components/Detalle-sucursal/Detalle-sucursal";
 function App() {   
 
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="dashboard" element={<UnderConstruction />}/>
               <Route path="sales" element={<UnderConstruction />}/>
               <Route path="branches" element={<Sucursales/>}/>
+              <Route path="DetallesSucursales/:id" element={<DetalleSucursal></DetalleSucursal>}/>
               <Route path="staff" element={<Personal />}/>
               <Route path="*" element={<Notfound />}/>  
               <Route path="login" element={<Login />}/>  

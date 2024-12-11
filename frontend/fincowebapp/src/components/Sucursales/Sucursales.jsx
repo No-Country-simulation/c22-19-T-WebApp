@@ -1,9 +1,45 @@
 import { Header } from "../Header/Header"
 import "./Sucursales.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegBuilding, FaUserTie, FaTag } from "react-icons/fa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Sucursales() {
-   
+    const navigate = useNavigate();
+    const [data, setData] = useState([])
+    const [filtro, setFiltro]=useState("")
+
+    
+    const getBranchesData = async () => {
+        try {
+            const response = await axios.get(
+                `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/`,
+                {
+                    headers: {
+                        "X-CSRFToken": "9pCrhFRWZNUyUXzD8hPym5KeqwuhRS5KdkKlhiTyDDdVGagK7C04maYn4wCCbQFN",
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+            setData(response.data);
+          
+           
+
+
+        } catch (error) {
+            console.error("Error fetching branches data:", error);
+        }
+    };
+
+    useEffect(() => {
+
+        getBranchesData()
+    
+    }, [])
+
+    const filteredData = data.filter(d => d.nombre.toLowerCase().includes(filtro.toLowerCase()));
+
     return (
         <>
 
@@ -22,107 +58,52 @@ function Sucursales() {
                     </p>
                 </div>
                 <div className="box-sucursal-filter">
-                    <input placeholder="Buscar..." type="text" />
+                    <input  onChange={(e) => setFiltro(e.target.value)} placeholder="Buscar..." type="text" />
                 </div>
 
-             
+
 
 
                 <div className="box-sucursal-card">
 
+                    {filteredData.map((d) => {
+                        
+                        const numeroAleatorio =  Math.floor(Math.random() * 100);;
+                        
+                          return(
+                        
+                        <div className="box-sucursal-card-child"
+                        onClick={() => navigate(`/DetallesSucursales/${d.id}`)}>
 
-                    <div className="box-sucursal-card-child">
 
+                            <div className="box-sucursal-card-child-title">
+                                <h4>
+                                    <i><FaRegBuilding></FaRegBuilding></i>
+                                    {d.nombre}
+                                </h4>
+                            </div>
 
-                        <div className="box-sucursal-card-child-title">
-                            <h4>
-                              <i><FaRegBuilding></FaRegBuilding></i>
-                                Constitucion
-                            </h4>
+                            <div className="box-sucursal-card-child-description">
+                                <p>{d.ciudad.nombre}</p>
+                            </div>
+
+                            <div className="box-sucursal-card-child-icons">
+                                <span><FaUserTie></FaUserTie>{d.empleados.length}</span>
+
+                                <span><FaTag ></FaTag > {numeroAleatorio}</span>
+                            </div>
+
                         </div>
+                           )
+                       
 
-                        <div className="box-sucursal-card-child-description">
-                            Colima
-                        </div>
-
-                        <div className="box-sucursal-card-child-icons">
-                            <span><FaUserTie></FaUserTie>450</span>
-
-                            <span><FaTag ></FaTag > 485</span>
-                        </div>
-
-                    </div>      
-
-                    
-                    <div className="box-sucursal-card-child">
+                    })}
 
 
-                        <div className="box-sucursal-card-child-title">
-                            <h4>
-                              <i><FaRegBuilding></FaRegBuilding></i>
-                                Constitucion
-                            </h4>
-                        </div>
 
-                        <div className="box-sucursal-card-child-description">
-                            Colima
-                        </div>
-
-                        <div className="box-sucursal-card-child-icons">
-                            <span><FaUserTie></FaUserTie>450</span>
-
-                            <span><FaTag ></FaTag > 485</span>
-                        </div>
-
-                    </div>      
-
-                    
-                    <div className="box-sucursal-card-child">
+               
 
 
-                        <div className="box-sucursal-card-child-title">
-                            <h4>
-                              <i><FaRegBuilding></FaRegBuilding></i>
-                                Constitucion
-                            </h4>
-                        </div>
-
-                        <div className="box-sucursal-card-child-description">
-                            Colima
-                        </div>
-
-                        <div className="box-sucursal-card-child-icons">
-                            <span><FaUserTie></FaUserTie>45</span>
-
-                            <span><FaTag ></FaTag > 485</span>
-                        </div>
-
-                    </div>      
-
-                    
-                    <div className="box-sucursal-card-child">
-
-
-                        <div className="box-sucursal-card-child-title">
-                            <h4>
-                              <i><FaRegBuilding></FaRegBuilding></i>
-                                Constitucion
-                            </h4>
-                        </div>
-
-                        <div className="box-sucursal-card-child-description">
-                            Colima
-                        </div>
-
-                        <div className="box-sucursal-card-child-icons">
-                            <span><FaUserTie></FaUserTie>450</span>
-
-                            <span><FaTag ></FaTag > 485</span>
-                        </div>
-
-                    </div>      
-
-                 
 
                 </div>
 
