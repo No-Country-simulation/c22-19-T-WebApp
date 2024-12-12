@@ -5,7 +5,7 @@ import axios from "axios";
 import { Header } from "../Header/Header";
 import { FaRegBuilding, FaUserTie, FaTag } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft,faHourglassStart } from '@fortawesome/free-solid-svg-icons';
 function DetalleSucursal() {
     const { id } = useParams(); // Obtener el ID de la URL
     const [detalle, setDetalle] = useState(null);
@@ -14,7 +14,7 @@ function DetalleSucursal() {
         const getBranchDetails = async () => {
             try {
                 const response = await axios.get(
-                    `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/${id}/`,
+                    `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/${id}`,
                     {
                         headers: {
                             "X-CSRFToken": "9pCrhFRWZNUyUXzD8hPym5KeqwuhRS5KdkKlhiTyDDdVGagK7C04maYn4wCCbQFN",
@@ -35,7 +35,7 @@ function DetalleSucursal() {
     }, [id]);
 
     if (!detalle) {
-        return <p>Cargando...</p>;
+        return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
     }
 
     return (
@@ -130,14 +130,13 @@ function DetalleSucursal() {
 
                             </div>
                             <p>
-                                <div>
-                                    {Array.isArray(detalle.empleados) ? (
-                                        detalle.empleados.map((e) => (
+                                <div className="Detalle-box-sucursal-card-child-Info-Gerente">
+                                  
+                                        {detalle.empleados.map((e) => (
                                             <p key={e.id}>{e.rol==="gerencia"?e.nombre:""}</p>
-                                        ))
-                                    ) : (
-                                        <p>Cargando empleados...</p>
-                                    )}
+                                        ))}
+                                   
+                                 
                                 </div>
 
                             </p>
@@ -150,7 +149,7 @@ function DetalleSucursal() {
                             <h4>Ventas totales</h4>
 
                             <p>
-                                {detalle.ventas_totales}
+                                ${detalle.ventas_totales}
                             </p>
 
                         </div>

@@ -22,6 +22,43 @@ def calcular_ventas(request, obj):
     return ventas.aggregate(total=Sum('total')).get('total') or 0
 
 
+def calcular_acumulado(custom_filter, fecha_inicio, fecha_fin):
+    """
+    Calcula el acumulado de ventas para una sucursal en un rango de fechas.
+    """
+    if not custom_filter:
+        ventas = Venta.objects.filter(
+            fecha__range=(fecha_inicio, fecha_fin)
+        ).aggregate(total=Sum('total'))
+    else:
+        ventas = Venta.objects.filter(
+            **custom_filter,
+            fecha__range=(fecha_inicio, fecha_fin)
+        ).aggregate(total=Sum('total'))
+
+    return ventas.get('total') or 0
+
+
+def calcular_fechas(periodo):
+    """
+    Devuelve el rango de fechas según el período especificado.
+    """
+    hoy = datetime.now()
+
+    if periodo == 'mes':
+        fecha_inicio = hoy.replace(day=1)
+        fecha_fin = (hoy.replace(day=28) + timedelta(days=4)
+                     ).replace(day=1) - timedelta(days=1)
+    elif periodo == 'anio':
+        fecha_inicio = datetime(hoy.year, 1, 1)
+        fecha_fin = datetime(hoy.year, 12, 31)
+    else:  # Por defecto, período semanal
+        fecha_inicio = hoy - timedelta(days=hoy.weekday())
+        fecha_fin = fecha_inicio + timedelta(days=6)
+
+    return fecha_inicio, fecha_fin
+
+
 class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
@@ -40,46 +77,20 @@ class MetaSerializer(serializers.ModelSerializer):
         fields = ['id', 'sucursal',
                   'semanal', 'mensual', 'anual', 'acumulado_semanal', 'acumulado_mensual', 'acumulado_anual']
 
-    def calcular_acumulado(self, sucursal_id, fecha_inicio, fecha_fin):
-        """
-        Calcula el acumulado de ventas para una sucursal en un rango de fechas.
-        """
-        ventas = Venta.objects.filter(
-            sucursal_id=sucursal_id,
-            fecha__range=(fecha_inicio, fecha_fin)
-        ).aggregate(total=Sum('total'))
-        return ventas.get('total') or 0
-
-    def calcular_fechas(self, periodo):
-        """
-        Devuelve el rango de fechas según el período especificado.
-        """
-        hoy = datetime.now()
-
-        if periodo == 'mes':
-            fecha_inicio = hoy.replace(day=1)
-            fecha_fin = (hoy.replace(day=28) + timedelta(days=4)
-                         ).replace(day=1) - timedelta(days=1)
-        elif periodo == 'anio':
-            fecha_inicio = datetime(hoy.year, 1, 1)
-            fecha_fin = datetime(hoy.year, 12, 31)
-        else:  # Por defecto, período semanal
-            fecha_inicio = hoy - timedelta(days=hoy.weekday())
-            fecha_fin = fecha_inicio + timedelta(days=6)
-
-        return fecha_inicio, fecha_fin
-
     def get_acumulado_semanal(self, obj):
-        fecha_inicio, fecha_fin = self.calcular_fechas('semana')
-        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
+        fecha_inicio, fecha_fin = calcular_fechas('semana')
+        filtro = {'sucursal_id': obj.sucursal.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)
 
     def get_acumulado_mensual(self, obj):
-        fecha_inicio, fecha_fin = self.calcular_fechas('mes')
-        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
+        fecha_inicio, fecha_fin = calcular_fechas('mes')
+        filtro = {'sucursal_id': obj.sucursal.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)
 
     def get_acumulado_anual(self, obj):
-        fecha_inicio, fecha_fin = self.calcular_fechas('anio')
-        return self.calcular_acumulado(obj.sucursal.id, fecha_inicio, fecha_fin)
+        fecha_inicio, fecha_fin = calcular_fechas('anio')
+        filtro = {'sucursal_id': obj.sucursal.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)
 
 
 class PerfilSerializer(serializers.ModelSerializer):
@@ -170,12 +181,15 @@ class ProductoSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     sucursal = serializers.SerializerMethodField()
     rol = serializers.SerializerMethodField()
-    total_vendido = serializers.SerializerMethodField()
+    venta_semanal = serializers.SerializerMethodField()
+    venta_mensual = serializers.SerializerMethodField()
+    venta_anual = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ["id", "username",  "first_name",
-                  "last_name", "sucursal", "rol", "total_vendido"]
+                  "last_name", "sucursal", "rol",
+                  "venta_semanal", "venta_mensual", "venta_anual"]
 
     def get_sucursal(self, obj):
         # Verifica si el perfil y la sucursal existen antes de acceder a ellos
@@ -196,6 +210,21 @@ class UserSerializer(serializers.ModelSerializer):
             return obj.perfil.rol.nombre
         return None
 
-    def get_total_vendido(self, obj):
-        request = self.context.get('request')
-        return calcular_ventas(request, obj)
+    # def get_total_vendido(self, obj):
+    #     request = self.context.get('request')
+    #     return calcular_ventas(request, obj)
+
+    def get_venta_semanal(self, obj):
+        fecha_inicio, fecha_fin = calcular_fechas('semana')
+        filtro = {'user_id': obj.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)
+
+    def get_venta_mensual(self, obj):
+        fecha_inicio, fecha_fin = calcular_fechas('mes')
+        filtro = {'user_id': obj.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)
+
+    def get_venta_anual(self, obj):
+        fecha_inicio, fecha_fin = calcular_fechas('anio')
+        filtro = {'user_id': obj.id}
+        return calcular_acumulado(filtro, fecha_inicio, fecha_fin)

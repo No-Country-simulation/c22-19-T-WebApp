@@ -8,7 +8,7 @@ export const Header = () => {
 
   const location = useLocation();
   const [abrirP, setAbrirP] = useState(false)
-
+  const [userName, setUserName] = useState("");
 
 
   const navigate = useNavigate();
@@ -18,12 +18,14 @@ export const Header = () => {
     navigate("/login");
   };
 
- /*    useEffect(() => {
-      const usuario = JSON.parse(localStorage.getItem("user"));
-      if (!usuario) {
-        navigate("/login"); 
-      }
-    }, [navigate]); */
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("user"));
+    if (!usuario) {
+      navigate("/login");
+    } else {
+      setUserName(usuario.username || "Usuario"); // Asignar el nombre del usuario al estado
+    }
+  }, [navigate]);
 
   return (
     <aside className="aside">
@@ -75,7 +77,7 @@ export const Header = () => {
                 <i><FaUserTie></FaUserTie></i>
               </div>
               <div className="box-logout-email">
-                Valentina Garcia
+                {userName}
               </div>
               <div className="box-logout-button">
                 <button onClick={() => logout()}>
