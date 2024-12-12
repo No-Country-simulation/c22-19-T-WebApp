@@ -1,10 +1,6 @@
 import "./Card_ventas_sucursales.css";
 import PropTypes from 'prop-types';
 
-/* 
-Pedro, cambie el export para poder incluirlo en el index de componentes.
-cuando puedas, mando los ultimos cambios que hiciste del login a la develope...
-  */
 
 export const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_ventas }) => {
   return (
@@ -15,12 +11,12 @@ export const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_v
       </div>
       <div className="card-body">
         <p className="ventas">
-          <span className="monto">${ventas}</span> / <span className="objetivo">${objetivo_ventas}</span>
+          <span className="monto">${ventas}</span> / <span className="objetivo">${objetivo_ventas} meta</span>
         </p>
         <div className="progress-container">
           <div className="progress-bar" style={{ width: `${ventas / objetivo_ventas * 100}%` }}></div>
         </div>
-        <p className="porcentaje">{ventas / objetivo_ventas * 100}%</p>
+        <p className="porcentaje">{(ventas / objetivo_ventas * 100).toFixed(2)}%</p>
       </div>
     </div>
   )
