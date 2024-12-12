@@ -7,7 +7,7 @@ import { faHourglassStart } from '@fortawesome/free-solid-svg-icons';
 import "./Home.css"
 export const Home = () => {
   const [currentUser, setCurrentUser] = useState({ username: 'Default' });
-  const [currentBranches, setCurrentBranches] = useState([]);
+  
   const [filteredBranches, setFilteredBranches] = useState([]);
   const [currentSales, setCurrentSales] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,10 +15,55 @@ export const Home = () => {
   const [selectedIcon, setSelectedIcon] = useState('building');
   const [currentSalesTotal, setCurrentSalesTotal] = useState(0);
   const [prevSalesTotal, setPrevSalesTotal] = useState(0);
-
-  const { filterDate } = useHome();
-
   
+
+  const { filterDate, branches, products, users, isDataLoaded } = useHome();  
+
+
+  const renderEntities = () => {
+    switch (selectedIcon) {
+      case "building":
+        return filteredBranches.map((branch) => {
+          let objetivoVentas = 1000;
+          if (filterDate.periodName === "semana") objetivoVentas = 250;
+          if (filterDate.periodName === "mes") objetivoVentas = 1500;
+          if (filterDate.periodName === "año") objetivoVentas = 20000;
+
+          return (
+            <Card_ventas_sucursales
+              key={`branch_${branch.id}`}
+              sucursal={branch.nombre}
+              localidad={branch.city}
+              ventas={parseFloat(branch.salesByPeriod)}
+              objetivo_ventas={objetivoVentas}
+            />
+          );
+        });
+
+      case "shoppingBag":
+        return products.map((product) => (
+          <Card_ventas_sucursales
+            key={`product_${product.id}`}
+            localidad={product.title}            
+            ventas={542}
+            objetivo_ventas={1000}
+          />
+        ));
+
+      case "bookReader":
+        return users.map((user) => (
+          <Card_ventas_sucursales
+            key={`user_${user.id}`}
+            localidad={user.username}
+            ventas={542}
+            objetivo_ventas={1000}
+          />
+        ));
+/**/
+      default:
+        return null;
+    }
+  };
 
   const getSalesData = async () => {
     try {
@@ -42,33 +87,14 @@ export const Home = () => {
     }
   };
 
-  const getBranchesData = async () => {
-    try {
-      const response = await axios.get(
-        `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/`,
-        {
-          headers: {
-            "X-CSRFToken": localStorage.getItem("token"),
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-      setCurrentBranches(response.data);
-    } catch (error) {
-      console.error("Error fetching branches data:", error);
-    }
-  };
-
   const getCurrentUser = () => {
-    setCurrentUser(JSON.parse(localStorage.getItem("user")))
-    
+    setCurrentUser(JSON.parse(localStorage.getItem("user")));    
   }
 
   const loadData = async () => {
     setLoading(true);
-    try {
-      await Promise.all([getSalesData(), getBranchesData()]);
+    try {      
+      await getSalesData();
       getCurrentUser();
     } catch (error) {
       console.error("Error loading data:", error);
@@ -78,13 +104,14 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    loadData();    
-    
+    loadData();        
   }, [filterDate]);
 
   useEffect(() => {
-    if (currentBranches.length && currentSales.length) {
-      const updatedFilteredBranches = currentBranches.map(branch => {
+    if (isDataLoaded && branches.length && currentSales.length) {
+      console.log(`datos cargados en el contexto, sucursales, productos, y personal`);
+      console.log( branches, products, users)
+      const updatedFilteredBranches = branches.map(branch => {
         const salesById = currentSales.filter(sale => sale.sucursal === branch.id);
         const totalSales = salesById.reduce((sum, sale) => sum + parseFloat(sale.total), 0);
         return {
@@ -98,13 +125,13 @@ export const Home = () => {
       const filteredByText = updatedFilteredBranches.filter(branch => branch.name.toLowerCase().includes(searchText.toLowerCase()));
       setFilteredBranches(filteredByText);
     }
-  }, [currentBranches, currentSales, searchText]);
+  }, [branches, currentSales, searchText]);
 
   if (loading) {
     return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
   }
 
-  //console.log(currentSalesTotal, prevSalesTotal)
+ //console.log(currentBranches, currentProducts, currentStaff )
 
   return (
     <>
@@ -129,27 +156,7 @@ export const Home = () => {
           selectedIcon={selectedIcon}
         />
 
-        {filteredBranches.map((branch, index) => {
-          let objetivoVentas = 1000;
-          if (filterDate.periodName == 'semana'){
-            objetivoVentas = 250;
-          }
-          if (filterDate.periodName =='mes'){
-            objetivoVentas = 1500;
-          }
-          if (filterDate.periodName =='año'){
-            objetivoVentas = 20000;
-          }
-          return (
-          <Card_ventas_sucursales
-            key={`branch_${branch.id}`}
-            sucursal={branch.name}
-            localidad= {branch.city}
-            ventas={branch.salesByPeriod}
-            objetivo_ventas={objetivoVentas}
-          />
-          )}
-        )}
+      {renderEntities()}
         <Card_ventas_productos 
           nombre="Linterna"
           categoria="Herramientas"

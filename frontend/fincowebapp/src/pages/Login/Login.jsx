@@ -10,7 +10,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth(); // Asume que login es una función asíncrona
   const togglePassword = () => setShowPassword(!showPassword);
-
+  
   const [credenciales, setCredenciales] = useState({
     username: "",
     password: "",
@@ -32,7 +32,7 @@ export const Login = () => {
       const loginStatus = await login(credenciales);
 
       if (loginStatus) {
-        console.log("Inicio de sesión exitoso");
+        console.log("Inicio de sesión exitoso");        
         navigate("/"); // Redirigir al usuario
       } else {
         alert("Credenciales incorrectas");
