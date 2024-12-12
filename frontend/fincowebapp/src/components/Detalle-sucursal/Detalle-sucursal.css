@@ -33,6 +33,7 @@
     text-align: start;
     color: #a093b3;
     padding: 0 0px 0 45px;
+    
 }
 .Detalle-box-sucursal-card{
     text-align: start;
@@ -41,19 +42,24 @@
     margin:20px 0 0 0;
     border-radius: 7px;
     background: #ffffff;
+    
+    
    
 }
 .Detalle-box-sucursal-card-title{
     font-size: 18px;
     color:#424242;
     padding: 0 0 0 30px;
+    
 }
 
 
 .Detalle-box-sucursal-card-child-Info{
-    padding: 20px 20px 0px 30px;
+    padding: 20px 20px 20px 30px;
     width: 100%;
     border-bottom: 2px solid #ececec;
+    
+    
 }
 .Detalle-box-sucursal-card-child h4{
     color: #8a3ffa;
@@ -63,6 +69,8 @@
 .Detalle-box-sucursal-card-child p{
     padding: 10px 0 0 0;
     text-align: start;
+    
+    
 }
 .Detalle-box-sucursal-card-child-Info-Gerente{
     display: flex;

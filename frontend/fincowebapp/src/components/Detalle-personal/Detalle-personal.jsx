@@ -53,8 +53,8 @@ function DetallePersonal() {
     return (
         <>
             <Header />
-            <div className="Detalle-box-sucursal">
-                <div className="Detalle-box-sucursal-title">
+            <div className="Detalle-box-personal">
+                <div className="Detalle-box-personal-title">
                     <h4>
                         <Link to="/staff">
                             <FontAwesomeIcon icon={faArrowLeft} />
@@ -66,41 +66,41 @@ function DetallePersonal() {
                     </h4>
                 </div>
                 
-                <div className="Detalle-box-sucursal-description">
+                <div className="Detalle-box-personal-description">
                     <p>Detalles del empleado</p>
                 </div>
-                <div className="Detalle-box-sucursal-card">
-                <div className="Detalle-box-sucursal-card-title">
+                <div className="Detalle-box-personal-card">
+                <div className="Detalle-box-personal-card-title">
                       
                         <h4>Informacion</h4>
          
                     </div>
-                    <div className="Detalle-box-sucursal-card-child">
-                         <div className="Detalle-box-sucursal-card-child-Info personal">
+                    <div className="Detalle-box-personal-card-child">
+                         <div className="Detalle-box-personal-card-child-Info ">
                         <h4>Usuario</h4>
                         <p>{empleado.username}</p>
                          </div>
                     </div>
-                    <div className="Detalle-box-sucursal-card-child">
-                        <div className="Detalle-box-sucursal-card-child-Info personal">
+                    <div className="Detalle-box-personal-card-child">
+                        <div className="Detalle-box-personal-card-child-Info ">
                         <h4>Nombre</h4>
                         <p>{empleado.first_name}</p>
                          </div>
                     </div>
-                    <div className="Detalle-box-sucursal-card-child">
-                          <div className="Detalle-box-sucursal-card-child-Info personal">
+                    <div className="Detalle-box-personal-card-child">
+                          <div className="Detalle-box-personal-card-child-Info ">
                         <h4>Apellido</h4>
                         <p>{empleado.last_name}</p>
  </div>
                     </div>
-                    <div className="Detalle-box-sucursal-card-child">
-  <div className="Detalle-box-sucursal-card-child-Info personal">
+                    <div className="Detalle-box-personal-card-child">
+  <div className="Detalle-box-personal-card-child-Info personal">
                         <h4>Rol</h4>
                         <p>{empleado.rol || "Sin rol asignado"}</p>
                          </div>
                     </div>
-                    <div className="Detalle-box-sucursal-card-child">
-  <div className="Detalle-box-sucursal-card-child-Info personal">
+                    <div className="Detalle-box-personal-card-child">
+  <div className="Detalle-box-personal-card-child-Info personal">
                         <h4>Sucursal asignada</h4>
                         <p>{empleado.sucursal.nombre || "No disponibles"}</p>
                          </div>
