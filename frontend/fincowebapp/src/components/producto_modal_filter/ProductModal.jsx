@@ -1,13 +1,13 @@
 import React from 'react';
-import './modal_filter_surcusal.css'
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import './ProductDialog.css'
+import { FaChevronDown, FaChevronUp, FaDiceD6, FaTrophy   } from "react-icons/fa";
 
 import { InteractiveProgressBar } from '../ProgressBar/InteractiveProgressBar';
 import {RadioSelect} from '../radio-select/RadioSelect';
 
 import {useState} from "react";
 
-export const DialogFilter = ({ open, onClose }) => {
+export const ProductDialog = ({ open, onClose }) => {
   if (!open) return null; // No renderizamos el modal si no está abierto
   // Estado para cada flecha (Estado para "Estado" y "Ciudad")
   const [stateArrowOpen, setStateArrowOpen] = useState(false);
@@ -36,20 +36,24 @@ export const DialogFilter = ({ open, onClose }) => {
     setter(prev => !prev); // Cambia el estado al hacer clic
   };
 
-  const stateOptions = ["Cordoba", "Santiago", "Guadalajara", "Bogota"];
-  const cityOptions = ["la palmita", "calera", "Viña del mar", "Cordoba"];
+  const stateOptions = ["Pizzas", "Pastas", "Carnes", "Pescados"];
+  const cityOptions = ["Hawaina", "Pasta blanca", "Lomo", "Bagre"];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3>Filtro por sucursal</h3>
-        <button className="modal-close" onClick={onClose}>X</button>
-        
+        <h3>Filtro por producto</h3>
+        <button className="modal-close" hidden onClick={onClose}>X</button>
         <div>
-          <p className='tittle'>Ubicación</p>
+          <div className='caract'>          
+          <p className='tittle'>
+          <FaDiceD6 className='icon-square'/>
+            Características 
+            </p>
+          </div>
           <div className='content-ubi'>
             <div className='estado'  onClick={() => handleArrowClick(setStateArrowOpen)}>
-            <p className='text'>Estado</p>
+            <p className='text'>Categoría del producto</p>
             {!stateArrowOpen && selectedState && (
             <p className="elegido">Elegido</p>
               )}
@@ -71,7 +75,7 @@ export const DialogFilter = ({ open, onClose }) => {
               </div>
             )}
             <div className='ciudad' onClick={() => handleArrowClick(setCityArrowOpen)} >
-            <p className='text' >Ciudad</p>
+            <p className='text' >Producto</p>
             {!stateArrowOpen && selectedCity && (
             <p className="elegido">Elegido</p>
               )}
@@ -96,7 +100,9 @@ export const DialogFilter = ({ open, onClose }) => {
         </div>
 
         <div>
-          <p className='tittle'>Logros</p>
+          <p className='tittle'>
+          <FaTrophy className='icon-square'/>
+            Logros</p>
           <div className='content-log'>
           <div className='estado' onClick={() => handleArrowClick(setAchievementArrowOpen)}  >
             <p className='text' >Mentas</p>
@@ -135,9 +141,7 @@ export const DialogFilter = ({ open, onClose }) => {
           </div>
         </div>
         
-        <button className='aplicar' onClick={onClose}>
-          Aplicar
-          </button>
+        <button className='aplicar' onClick={onClose}>Aplicar</button>
       </div>
     </div>
   );
