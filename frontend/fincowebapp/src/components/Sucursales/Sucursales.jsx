@@ -90,7 +90,7 @@ function Sucursales() {
                             <div className="box-sucursal-card-child-icons">
                                 <span><FaUserTie></FaUserTie>{d.empleados.length}</span>
 
-                                <span><FaTag ></FaTag > {numeroAleatorio}</span>
+                                <span><FaTag ></FaTag > 100</span>
                             </div>
 
                         </div>

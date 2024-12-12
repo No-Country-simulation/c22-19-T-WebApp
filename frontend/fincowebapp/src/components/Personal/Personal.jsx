@@ -30,6 +30,9 @@ function Personal() {
         getBranchesData();
     }, []);
 
+    const filteredData = data.filter((empleado) =>
+        empleado.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     // Filtrar empleados según el término de búsqueda
 
     return (
@@ -56,7 +59,7 @@ function Personal() {
                     />
                 </div>
                 <div className="box-personal-card">
-                    {data.map((empleado) => (
+                    {filteredData.map((empleado) => (
                         <div key={empleado.id} className="box-personal-card-child"
                         onClick={() => navigate(`/DetallesPersonal/${empleado.id}`)}>
                             <div className="box-personal-card-child-title">

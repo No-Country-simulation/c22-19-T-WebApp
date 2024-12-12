@@ -149,7 +149,7 @@ function DetalleSucursal() {
                             <h4>Ventas totales</h4>
 
                             <p>
-                                {detalle.ventas_totales}
+                                ${detalle.ventas_totales}
                             </p>
 
                         </div>
