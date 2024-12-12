@@ -22,7 +22,7 @@ function App() {
               <Route path="sales" element={<UnderConstruction />}/>
               <Route path="branches" element={<Sucursales/>}/>
               <Route path="DetallesSucursales/:id" element={<DetalleSucursal></DetalleSucursal>}/>
-              <Route path="DetallesPersonal/:id" element={<DetallePersonal></DetallePersonal>}/>
+              <Route path="DetallesPersonal/:empleadoId" element={<DetallePersonal></DetallePersonal>}/>
               <Route path="staff" element={<Personal />}/>
               <Route path="*" element={<Notfound />}/>  
               <Route path="login" element={<Login />}/>  

@@ -18,13 +18,13 @@ export const Header = () => {
     navigate("/login");
   };
 
-  /*   useEffect(() => {
+    useEffect(() => {
       const usuario = JSON.parse(localStorage.getItem("user"));
       if (!usuario) {
         navigate("/login"); 
       }
     }, [navigate]);
- */
+
   return (
     <aside className="aside">
 

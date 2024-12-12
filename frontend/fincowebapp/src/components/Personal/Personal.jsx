@@ -3,15 +3,15 @@ import axios from "axios";
 import { FaRegBuilding, FaUserTie } from "react-icons/fa";
 import "./Personal.css";
 import { Header } from "../Header/Header";
-
+import { Navigate, useNavigate } from "react-router-dom";
 function Personal() {
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-
+    const navigate= useNavigate()
     const getBranchesData = async () => {
         try {
             const response = await axios.get(
-                `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/`,
+                `https://c2219twebapp.pythonanywhere.com/negocio/api/v1/usuarios/`,
                 {
                     headers: {
                         "X-CSRFToken": "9pCrhFRWZNUyUXzD8hPym5KeqwuhRS5KdkKlhiTyDDdVGagK7C04maYn4wCCbQFN",
@@ -31,16 +31,6 @@ function Personal() {
     }, []);
 
     // Filtrar empleados según el término de búsqueda
-    const filteredEmployees = data.flatMap((sucursal) =>
-        sucursal.empleados
-            .filter((empleado) =>
-                empleado.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map((empleado) => ({
-                ...empleado,
-                sucursal: sucursal.nombre,
-            }))
-    );
 
     return (
         <>
@@ -66,21 +56,22 @@ function Personal() {
                     />
                 </div>
                 <div className="box-personal-card">
-                    {filteredEmployees.map((empleado) => (
-                        <div key={empleado.id} className="box-personal-card-child">
+                    {data.map((empleado) => (
+                        <div key={empleado.id} className="box-personal-card-child"
+                        onClick={() => navigate(`/DetallesPersonal/${empleado.id}`)}>
                             <div className="box-personal-card-child-title">
                                 <h4>
                                     <i>
                                         <FaUserTie />
                                     </i>
-                                    {empleado.nombre}
+                                    {empleado.username}
                                 </h4>
                             </div>
                             <div className="box-personal-card-child-description">
                                 <i>
                                     <FaRegBuilding />
                                 </i>
-                                {empleado.sucursal}
+                                {empleado.sucursal.nombre}
                             </div>
                             <div
                                 className={
