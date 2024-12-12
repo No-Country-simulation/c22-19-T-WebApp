@@ -59,7 +59,7 @@ export const Home = () => {
             objetivo_ventas={1000}
           />
         ));
-/**/
+
       default:
         return null;
     }
@@ -110,7 +110,7 @@ export const Home = () => {
   useEffect(() => {
     if (isDataLoaded && branches.length && currentSales.length) {
       console.log(`datos cargados en el contexto, sucursales, productos, y personal`);
-      console.log( branches, products, users)
+      console.log( users)
       const updatedFilteredBranches = branches.map(branch => {
         const salesById = currentSales.filter(sale => sale.sucursal === branch.id);
         const totalSales = salesById.reduce((sum, sale) => sum + parseFloat(sale.total), 0);
@@ -121,9 +121,9 @@ export const Home = () => {
           salesByPeriod: totalSales.toFixed(2),
         };
       });
-      //console.log(searchText)
       const filteredByText = updatedFilteredBranches.filter(branch => branch.name.toLowerCase().includes(searchText.toLowerCase()));
-      setFilteredBranches(filteredByText);
+      console.log(filteredByText)
+      setFilteredBranches(filteredByText);      
     }
   }, [branches, currentSales, searchText]);
 
@@ -133,38 +133,97 @@ export const Home = () => {
 
  //console.log(currentBranches, currentProducts, currentStaff )
 
-  return (
-    <>
-    
+ return (
+  <>
+    <Header />
+    <main>
+      <h2>Ventas</h2>
+      <p>Visualiza las ventas realizadas.</p>
 
-    
-      <Header />
-      <main>
-        <h2>Ventas</h2>
-        <p>Visualiza las ventas realizadas.</p>
+      <CardWelcome
+        name={currentUser.username}
+        sales={currentSalesTotal}
+        prevSales={prevSalesTotal}
+      />
 
-        <CardWelcome
-          name={currentUser.username}
-          sales={currentSalesTotal}
-          prevSales={prevSalesTotal}
-        />
+      <SearchBar
+        setSearchText={setSearchText}
+        searchText={searchText}
+        setSelectedIcon={setSelectedIcon}
+        selectedIcon={selectedIcon}
+      />
 
-        <SearchBar
-          setSearchText={setSearchText}
-          searchText={searchText}
-          setSelectedIcon={setSelectedIcon}
-          selectedIcon={selectedIcon}
-        />
+      {/* Renderizar condicionalmente según selectedIcon */}
+      {selectedIcon === "building" && (
+        filteredBranches.map((branch) => {
+          let objetivoVentas = 1000;
+          if (filterDate.periodName === "semana") {
+            objetivoVentas = 250;
+          } else if (filterDate.periodName === "mes") {
+            objetivoVentas = 1500;
+          } else if (filterDate.periodName === "año") {
+            objetivoVentas = 20000;
+          }
 
-      {renderEntities()}
-        <Card_ventas_productos 
-          nombre="Linterna"
-          categoria="Herramientas"
-          ventas={154}
-          objetivo_ventas={300}
-        />
-      </main>
+          return (
+            <Card_ventas_sucursales
+              key={branch.id}
+              sucursal={branch.name}
+              localidad={branch.city}
+              ventas={parseFloat(branch.salesByPeriod)}
+              objetivo_ventas={objetivoVentas}
+            />
+          );
+        })
+      )}
+      
+      {selectedIcon === "shoppingBag" && (
+        products.map((product) => {
+          let objetivoVentas = 1000;
+          if (filterDate.periodName === "semana") {
+            objetivoVentas = 250;
+          } else if (filterDate.periodName === "mes") {
+            objetivoVentas = 1500;
+          } else if (filterDate.periodName === "año") {
+            objetivoVentas = 20000;
+          }
 
-    </>
-  );
-};
+          return (
+            <Card_ventas_sucursales
+              key={product.id}
+              sucursal={product.title}
+              localidad={product.description}
+              ventas={product.total_vendido}
+              objetivo_ventas={200}
+            />
+          );
+        })
+      )}
+
+      {selectedIcon === "bookReader" && (
+        users.map((user) => {
+          let objetivoVentas = 1000;
+          if (filterDate.periodName === "semana") {
+            objetivoVentas = 250;
+          } else if (filterDate.periodName === "mes") {
+            objetivoVentas = 1500;
+          } else if (filterDate.periodName === "año") {
+            objetivoVentas = 20000;
+          }
+
+          return (
+            <Card_ventas_sucursales
+              key={user.id}
+              sucursal={`${user.first_name} ${user.last_name}`}
+              localidad={user.sucursal.nombre}
+              ventas={125}
+              objetivo_ventas={200}
+            />
+          );
+        })
+      )}
+
+    </main>
+  </>
+);
+}
