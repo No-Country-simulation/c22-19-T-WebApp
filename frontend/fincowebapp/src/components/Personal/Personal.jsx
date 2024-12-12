@@ -3,14 +3,10 @@ import axios from "axios";
 import { FaRegBuilding, FaUserTie } from "react-icons/fa";
 import "./Personal.css";
 import { Header } from "../Header/Header";
-import { useNavigate } from "react-router-dom";
-function Personal() {
 
+function Personal() {
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
- const navigate = useNavigate();
-
-
 
     const getBranchesData = async () => {
         try {
@@ -34,12 +30,16 @@ function Personal() {
         getBranchesData();
     }, []);
 
-
     // Filtrar empleados según el término de búsqueda
-    const filteredData = data.flatMap((d) =>
-        d.empleados
-            .filter((e) => e.nombre.toLowerCase().includes(searchTerm.toLowerCase()))
-            .map((e) => ({ ...e, sucursal: d.nombre })) // Agregar sucursal al empleado
+    const filteredEmployees = data.flatMap((sucursal) =>
+        sucursal.empleados
+            .filter((empleado) =>
+                empleado.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((empleado) => ({
+                ...empleado,
+                sucursal: sucursal.nombre,
+            }))
     );
 
     return (
@@ -66,25 +66,30 @@ function Personal() {
                     />
                 </div>
                 <div className="box-personal-card">
-                    {filteredData.map((e) => (
-                        <div key={`${e.id}`} className="box-personal-card-child"
-                        onClick={() => navigate(`/DetallesPersonal/${e.id}`)}>
+                    {filteredEmployees.map((empleado) => (
+                        <div key={empleado.id} className="box-personal-card-child">
                             <div className="box-personal-card-child-title">
                                 <h4>
                                     <i>
                                         <FaUserTie />
                                     </i>
-                                    {e.nombre}
+                                    {empleado.nombre}
                                 </h4>
                             </div>
                             <div className="box-personal-card-child-description">
                                 <i>
                                     <FaRegBuilding />
                                 </i>
-                                {e.sucursal} {/* Nombre de la sucursal */}
+                                {empleado.sucursal}
                             </div>
-                            <div className={e.rol==="ventas"?"box-personal-card-child-icons":"box-personal-card-child-icons-red"}>
-                                <span>{e.rol || "Sin rol asignado"}</span>
+                            <div
+                                className={
+                                    empleado.rol === "ventas"
+                                        ? "box-personal-card-child-icons"
+                                        : "box-personal-card-child-icons-red"
+                                }
+                            >
+                                <span>{empleado.rol || "Sin rol asignado"}</span>
                             </div>
                         </div>
                     ))}
@@ -94,4 +99,4 @@ function Personal() {
     );
 }
 
-export default Personal
+export default Personal;
