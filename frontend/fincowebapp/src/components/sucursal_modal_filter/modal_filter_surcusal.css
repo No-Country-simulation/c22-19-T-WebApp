@@ -37,19 +37,20 @@
   }
   
   /* Estilo para el botón de cierre */
-  button {
+  .aplicar {
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #4F46E5;
     color: white;
     padding: 10px 210px;
     border: none;
     border-radius: 5px;
     margin-top: 20px;
-    max-width: 100%;
+    width: 100%;
+    font-size: 16px;
   }
   
-  button:hover {
-    background-color: #0056b3;
+  .aplicar:hover {
+    background-color: #4F46E5;
   }
   
   h3{

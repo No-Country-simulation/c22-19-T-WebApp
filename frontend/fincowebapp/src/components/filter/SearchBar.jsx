@@ -87,7 +87,6 @@ export function SearchBar({ setSearchText, searchText,  setSelectedIcon, selecte
               <FaBookReader className="icon-A" />
             </p>
             <p className="searchBar-text">Personal</p>
-<<<<<<< HEAD
             </div> 
             </div>
             <div className="searchBar-Input-Filter">
@@ -107,23 +106,6 @@ export function SearchBar({ setSearchText, searchText,  setSelectedIcon, selecte
                     <ProductDialog open={openProduct} onClose={handleProductClose}></ProductDialog>
                     <PersonalDialog open={openPersonal} onClose={handlePersonalClose}></PersonalDialog>
             </div>
-=======
-          </div>
->>>>>>> homepage_integration
-        </div>
-        <div className="searchBar-Input-Filter">
-          <input
-            className="searchBar-Input"
-            type="text"
-            placeholder="Buscar..."
-            value={searchText}
-            onChange={handleImputChange}
-          />
-          <button className="searchBar-button-Filter" onClick={handleClickOpen}>
-            <FaFilter className="icon" />
-          </button>
-          <DialogFilter open={open} onClose={handleClose}></DialogFilter>
-        </div>
-      </div>
+            </div>
     );
 }
