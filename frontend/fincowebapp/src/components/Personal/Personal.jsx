@@ -3,10 +3,14 @@ import axios from "axios";
 import { FaRegBuilding, FaUserTie } from "react-icons/fa";
 import "./Personal.css";
 import { Header } from "../Header/Header";
-
+import { useNavigate } from "react-router-dom";
 function Personal() {
+
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+ const navigate = useNavigate();
+
+
 
     const getBranchesData = async () => {
         try {
@@ -63,7 +67,8 @@ function Personal() {
                 </div>
                 <div className="box-personal-card">
                     {filteredData.map((e) => (
-                        <div key={`${e.id}`} className="box-personal-card-child">
+                        <div key={`${e.id}`} className="box-personal-card-child"
+                        onClick={() => navigate(`/DetallesPersonal/${e.id}`)}>
                             <div className="box-personal-card-child-title">
                                 <h4>
                                     <i>
