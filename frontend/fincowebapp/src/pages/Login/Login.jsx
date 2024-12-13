@@ -34,6 +34,7 @@ export const Login = () => {
       if (loginStatus) {
         console.log("Inicio de sesión exitoso");        
         navigate("/"); // Redirigir al usuario
+        navigate(0);
       } else {
         alert("Credenciales incorrectas");
       }
