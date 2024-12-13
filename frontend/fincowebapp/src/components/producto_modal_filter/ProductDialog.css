@@ -36,6 +36,13 @@
     cursor: pointer;
   }
   
+ .icon-square{
+    margin-top: 2px;
+    margin-right: 5px;
+    justify-self: first baseline;
+ }
+  
+
   /* Estilo para el botón de cierre */
   .aplicar {
     cursor: pointer;
@@ -52,6 +59,11 @@
   .aplicar:hover {
     background-color: #4F46E5;
   }
+
+  .ubicacion{
+    margin-left: 20px;
+    padding: 10px;
+  }
   
   h3{
     color: #332C49
@@ -64,7 +76,6 @@
     margin-top: 10px;
     margin-bottom: 10px;
     color: #332C49 ;
-   
   }
 
   .text{
@@ -105,6 +116,9 @@
    color: #332C49;
    padding-right: 10px;
   }
+  .arrow:hover{
+    color: #4F46E5;
+   }
 
   .content-dialog{
     padding-left: 33px;

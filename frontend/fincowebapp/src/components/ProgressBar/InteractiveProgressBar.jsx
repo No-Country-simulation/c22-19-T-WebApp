@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import "./InteractiveProgressBar.css";
 
-export const InteractiveProgressBar = () => {
-  const [value, setValue] = useState(0); 
-
-  const handleChange = (e) => {
-    setValue(Number(e.target.value)); 
-  };
-
+export const InteractiveProgressBar = ({ value, onChange }) => {
   return (
     <div className="progress-bar-container">
      <div className="slider-wrapper">
@@ -17,17 +11,17 @@ export const InteractiveProgressBar = () => {
           max="100"
           step="1"
           value={value}
-          onChange={handleChange}
+          onChange={onChange}
           className="slider"
         />
       </div>
       <div className="input-values">
         <input
-          type="number"
-          value={value}
+          type="string"
+          value={`$${value}`}
           min="0"
           max="100"
-          onChange={(e) => setValue(Number(e.target.value))}
+          onChange={onChange}
           className="input-field"
         />
         <span className="separator">-</span>
