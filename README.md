@@ -4,6 +4,12 @@ Simulación laboral de No-Country iniciada el 11/11/2024.
 ## Introducción del proyecto 
 Finco es una aplicación web diseñada para ayudar a dueños y gerentes de empresas a llevar el control de sus ventas de manera clara y sencilla. Este proyecto se desarrolla en el marco de un programa práctico orientado a profesionales de tecnología que buscan adquirir experiencia trabajando en equipo dentro de un entorno realista. El objetivo es simular un proyecto empresarial real y desarrollar tanto habilidades técnicas como de colaboración.
 
+Front: https://c22-19-t-webapp.onrender.com/
+
+API documentacion: https://c2219twebapp.pythonanywhere.com/docs/
+
+Credenciales: admin/admin
+
 ## Colaboradores del repositorio
 ### Backend
 - **Carolina Acosta** - Uruguay
