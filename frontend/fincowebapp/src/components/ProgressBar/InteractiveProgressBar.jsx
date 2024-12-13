@@ -8,7 +8,7 @@ export const InteractiveProgressBar = ({ value, onChange }) => {
         <input
           type="range"
           min="0"
-          max="100"
+          max="1000"
           step="1"
           value={value}
           onChange={onChange}
@@ -20,14 +20,14 @@ export const InteractiveProgressBar = ({ value, onChange }) => {
           type="string"
           value={`$${value}`}
           min="0"
-          max="100"
+          max="1000"
           onChange={onChange}
           className="input-field"
         />
         <span className="separator">-</span>
         <input
           type="number"
-          value={100 - value}
+          value={1000 - value}
           readOnly
           className="input-field"
         />

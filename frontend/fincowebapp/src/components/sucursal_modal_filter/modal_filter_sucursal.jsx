@@ -1,93 +1,141 @@
-import React from 'react';
-import './modal_filter_surcusal.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Asegúrate de importar Axios
+import "./modal_filter_surcusal.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
-import { InteractiveProgressBar } from '../ProgressBar/InteractiveProgressBar';
-import {RadioSelect} from '../radio-select/RadioSelect';
-
-import {useState} from "react";
+import { InteractiveProgressBar } from "../ProgressBar/InteractiveProgressBar";
+import { RadioSelect } from "../radio-select/RadioSelect";
 
 export const DialogFilter = ({ open, onClose }) => {
-  if (!open) return null; // No renderizamos el modal si no está abierto
-  // Estado para cada flecha (Estado para "Estado" y "Ciudad")
+  if (!open) return null;
+
+  // Estado para manejar la apertura de secciones
   const [stateArrowOpen, setStateArrowOpen] = useState(false);
   const [cityArrowOpen, setCityArrowOpen] = useState(false);
   const [achievementArrowOpen, setAchievementArrowOpen] = useState(false);
   const [salesArrowOpen, setSalesArrowOpen] = useState(false);
 
+  // Estado para manejar las opciones seleccionadas
   const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedSCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
-   // Estados para las barras de progreso
-   const [achievementProgress, setAchievementProgress] = useState(0);
-   const [salesProgress, setSalesProgress] = useState(0);
- 
+  // Estados para sucursales, provincias y ciudades
+  const [provincias, setProvincias] = useState([]);
+  const [ciudades, setCiudades] = useState([]);
 
-  // Manejador de cambios en la barra de progreso
+  // Estados para las barras de progreso
+  const [achievementProgress, setAchievementProgress] = useState(0);
+  const [salesProgress, setSalesProgress] = useState(0);
+
+  // Obtener datos del endpoint al montar el componente
+  useEffect(() => {
+    const fetchSucursales = async () => {
+      try {
+        const response = await axios.get(
+          "https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/",
+          {
+            headers: {
+              "X-CSRFToken": localStorage.getItem("token"), // Token almacenado
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+
+        // Extraer provincias y ciudades únicas
+        const sucursales = response.data;
+        const uniqueProvincias = [
+          ...new Map(
+            sucursales.map((sucursal) => [sucursal.provincia.id, sucursal.provincia])
+          ).values(),
+        ];
+        const uniqueCiudades = [
+          ...new Map(
+            sucursales.map((sucursal) => [sucursal.ciudad.id, sucursal.ciudad])
+          ).values(),
+        ];
+
+        setProvincias(uniqueProvincias);
+        setCiudades(uniqueCiudades);
+      } catch (error) {
+        console.error("Error al obtener las sucursales:", error);
+      }
+    };
+
+    fetchSucursales();
+  }, []);
+
   const handleAchievementProgressChange = (e) => {
     setAchievementProgress(Number(e.target.value));
   };
 
-  const handleSalesProgressChange  = (e) => {
+  const handleSalesProgressChange = (e) => {
     setSalesProgress(Number(e.target.value));
   };
 
   const handleArrowClick = (setter) => {
-    setter(prev => !prev); // Cambia el estado al hacer clic
+    setter((prev) => !prev);
   };
-
-  const stateOptions = ["Cordoba", "Santiago", "Guadalajara", "Bogota"];
-  const cityOptions = ["la palmita", "calera", "Viña del mar", "Cordoba"];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h3>Filtro por sucursal</h3>
-        <button className="modal-close" onClick={onClose}>X</button>
-        
+        <button className="modal-close" onClick={onClose}>
+          X
+        </button>
+
         <div>
-          <p className='tittle'>Ubicación</p>
-          <div className='content-ubi'>
-            <div className='estado'  onClick={() => handleArrowClick(setStateArrowOpen)}>
-            <p className='text'>Estado</p>
-            {!stateArrowOpen && selectedState && (
-            <p className="elegido">Elegido</p>
+          <p className="tittle">Ubicación</p>
+          <div className="content-ubi">
+            {/* Provincias */}
+            <div
+              className="estado"
+              onClick={() => handleArrowClick(setStateArrowOpen)}
+            >
+              <p className="text">Provincia</p>
+              {!stateArrowOpen && selectedState && (
+                <p className="elegido">Elegido</p>
               )}
-            <p className='arrow'>
-              {stateArrowOpen ?  <FaChevronUp />: <FaChevronDown />}
-            </p>            
+              <p className="arrow">
+                {stateArrowOpen ? <FaChevronUp /> : <FaChevronDown />}
+              </p>
             </div>
             {stateArrowOpen && (
               <div className="content-dialog">
-                {stateOptions.map((option) => (
+                {provincias.map((provincia) => (
                   <RadioSelect
-                    key={option}
-                    label={option}
-                    name="estado" // : todos los radio buttons comparten el mismo "name"
-                    checked={selectedState === option}
-                    onChange={(e) => setSelectedState(option)}
+                    key={provincia.id}
+                    label={provincia.nombre}
+                    name="provincia"
+                    checked={selectedState === provincia.nombre}
+                    onChange={(e) => setSelectedState(provincia.nombre)}
                   />
                 ))}
               </div>
             )}
-            <div className='ciudad' onClick={() => handleArrowClick(setCityArrowOpen)} >
-            <p className='text' >Ciudad</p>
-            {!stateArrowOpen && selectedCity && (
-            <p className="elegido">Elegido</p>
+
+            {/* Ciudades */}
+            <div
+              className="ciudad"
+              onClick={() => handleArrowClick(setCityArrowOpen)}
+            >
+              <p className="text">Ciudad</p>
+              {!cityArrowOpen && selectedCity && (
+                <p className="elegido">Elegido</p>
               )}
-            <p className='arrow'>
-              {cityArrowOpen ? <FaChevronUp /> : <FaChevronDown />}
-            </p>
+              <p className="arrow">
+                {cityArrowOpen ? <FaChevronUp /> : <FaChevronDown />}
+              </p>
             </div>
             {cityArrowOpen && (
               <div className="content-dialog">
-                {cityOptions.map((option) => (
+                {ciudades.map((ciudad) => (
                   <RadioSelect
-                    key={option}
-                    label={option}
-                    name="ciudad" // : todos los radio buttons comparten el mismo "name"
-                    checked={selectedCity === option}
-                    onChange={(e) => setSelectedSCity(option)}
+                    key={ciudad.id}
+                    label={ciudad.nombre}
+                    name="ciudad"
+                    checked={selectedCity === ciudad.nombre}
+                    onChange={(e) => setSelectedCity(ciudad.nombre)}
                   />
                 ))}
               </div>

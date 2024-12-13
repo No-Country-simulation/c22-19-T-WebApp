@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from 'react';
 import './PersonalDialog.css'
 import { FaChevronDown, FaChevronUp, FaDiceD6, FaTrophy   } from "react-icons/fa";
@@ -5,7 +6,7 @@ import { FaChevronDown, FaChevronUp, FaDiceD6, FaTrophy   } from "react-icons/fa
 import { InteractiveProgressBar } from '../ProgressBar/InteractiveProgressBar';
 import {RadioSelect} from '../radio-select/RadioSelect';
 
-import {useState} from "react";
+import {useState, useEffect } from "react";
 
 export const PersonalDialog = ({ open, onClose }) => {
   if (!open) return null; // No renderizamos el modal si no está abierto
@@ -22,6 +23,32 @@ export const PersonalDialog = ({ open, onClose }) => {
    const [achievementProgress, setAchievementProgress] = useState(0);
    const [salesProgress, setSalesProgress] = useState(0);
  
+   // Estado para almacenar las sucursales
+  const [sucursales, setSucursales] = useState([]);
+
+   // Obtener datos del endpoint al montar el componente
+   // Obtener datos del endpoint usando Axios
+  useEffect(() => {
+    const fetchSucursales = async () => {
+      try {
+        const response = await axios.get(
+          "https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/",
+          {
+            headers: {
+              "X-CSRFToken": localStorage.getItem("token"), // Token almacenado
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // Habilitar envío de cookies
+          }
+        );
+        setSucursales(response.data); // Almacenar las sucursales en el estado
+      } catch (error) {
+        console.error("Error al obtener las sucursales:", error);
+      }
+    };
+
+    fetchSucursales();
+  }, []); // Ejecutar al montar el componente
 
   // Manejador de cambios en la barra de progreso
   const handleAchievementProgressChange = (e) => {
@@ -36,8 +63,7 @@ export const PersonalDialog = ({ open, onClose }) => {
     setter(prev => !prev); // Cambia el estado al hacer clic
   };
 
-  const stateOptions = ["Pizzas", "Pastas", "Carnes", "Pescados"];
-  const cityOptions = ["Hawaina", "Pasta blanca", "Lomo", "Bagre"];
+  const cityOptions = ["Maria Castillo", "Manuel Castillo", "Jose Lobo", "Ana Palacios"];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -53,7 +79,7 @@ export const PersonalDialog = ({ open, onClose }) => {
           </div>
           <div className='content-ubi'>
             <div className='estado'  onClick={() => handleArrowClick(setStateArrowOpen)}>
-            <p className='text'>Categoría del producto</p>
+            <p className='text'>Sucursal</p>
             {!stateArrowOpen && selectedState && (
             <p className="elegido">Elegido</p>
               )}
@@ -63,19 +89,19 @@ export const PersonalDialog = ({ open, onClose }) => {
             </div>
             {stateArrowOpen && (
               <div className="content-dialog">
-                {stateOptions.map((option) => (
+                {sucursales.map((sucursal) => (
                   <RadioSelect
-                    key={option}
-                    label={option}
-                    name="estado" // : todos los radio buttons comparten el mismo "name"
-                    checked={selectedState === option}
-                    onChange={(e) => setSelectedState(option)}
+                    key={sucursal.id}
+                    label={sucursal.nombre}
+                    name="sucursal"
+                    checked={selectedState === sucursal.nombre}
+                    onChange={(e) => setSelectedState(sucursal.nombre)}
                   />
                 ))}
               </div>
             )}
             <div className='ciudad' onClick={() => handleArrowClick(setCityArrowOpen)} >
-            <p className='text' >Producto</p>
+            <p className='text' >Nombre del Vendedor</p>
             {!stateArrowOpen && selectedCity && (
             <p className="elegido">Elegido</p>
               )}

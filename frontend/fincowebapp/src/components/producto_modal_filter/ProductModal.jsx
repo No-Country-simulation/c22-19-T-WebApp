@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from 'react';
 import './ProductDialog.css'
 import { FaChevronDown, FaChevronUp, FaDiceD6, FaTrophy   } from "react-icons/fa";
@@ -5,7 +6,7 @@ import { FaChevronDown, FaChevronUp, FaDiceD6, FaTrophy   } from "react-icons/fa
 import { InteractiveProgressBar } from '../ProgressBar/InteractiveProgressBar';
 import {RadioSelect} from '../radio-select/RadioSelect';
 
-import {useState} from "react";
+import {useState, useEffect } from "react";
 
 export const ProductDialog = ({ open, onClose }) => {
   if (!open) return null; // No renderizamos el modal si no está abierto
@@ -22,6 +23,31 @@ export const ProductDialog = ({ open, onClose }) => {
    const [achievementProgress, setAchievementProgress] = useState(0);
    const [salesProgress, setSalesProgress] = useState(0);
  
+    // Estado para almacenar los productos
+  const [productos, setProductos] = useState([]);
+
+  // Obtener datos del endpoint al montar el componente
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const response = await axios.get(
+          "https://c2219twebapp.pythonanywhere.com/negocio/api/v1/productos/",
+          {
+            headers: {
+              "X-CSRFToken": localStorage.getItem("token"), // Token almacenado
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        setProductos(response.data); // Actualiza el estado con los datos de productos
+      } catch (error) {
+        console.error("Error al obtener los productos:", error);
+      }
+    };
+
+    fetchProductos();
+  }, []);
 
   // Manejador de cambios en la barra de progreso
   const handleAchievementProgressChange = (e) => {
@@ -85,15 +111,21 @@ export const ProductDialog = ({ open, onClose }) => {
             </div>
             {cityArrowOpen && (
               <div className="content-dialog">
-                {cityOptions.map((option) => (
+                {/* Mostrar solo el título de los productos */}
+                {cityArrowOpen && (
+              <div className="content-dialog">
+                {/* Limitar a los primeros 5 productos */}
+                {productos.slice(0, 5).map((producto) => (
                   <RadioSelect
-                    key={option}
-                    label={option}
-                    name="ciudad" // : todos los radio buttons comparten el mismo "name"
-                    checked={selectedCity === option}
-                    onChange={(e) => setSelectedSCity(option)}
+                    key={producto.id}
+                    label={producto.title} // Mostrar solo el título
+                    name="producto"
+                    checked={selectedCity === producto.title}
+                    onChange={(e) => setSelectedSCity(producto.title)}
                   />
                 ))}
+              </div>
+            )}
               </div>
             )}
           </div>
