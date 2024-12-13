@@ -27,7 +27,7 @@ Finco es una aplicación web diseñada para ayudar a dueños y gerentes de empre
 - Diseño en Figma: https://www.figma.com/design/sSSesLmrClnjcT3RJh3Alw/FINCO-NC?node-id=57-1501&t=38SO61CiKh80e7Y8-1
 
 ## Sistema de Ramas
--  Se trabaja creando una rama FEATURE a partir de la rama DEVELOP
+-  Se trabaja creando una rama FEATURE a partir de la rama DEVELOPE
 -  El nombre de las ramas es _nombre de feature_-_nombre del dev_
 
 ## Cosas para agregar o trabajar a futuro
