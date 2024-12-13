@@ -1,0 +1,77 @@
+.Detalle-box-sucursal{
+    position: absolute;
+    width: 1000px;
+    margin: 0 0 0 30%;
+    
+}
+
+
+.Detalle-box-sucursal-title{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding: 30px 0 0 0px;
+    font-size: 24px;
+    color:  #252525;
+}
+.Detalle-box-sucursal-title a{
+
+ padding: 0 20px 0 0;
+
+}
+.Detalle-box-sucursal-title i{
+    font-size: 20px;
+    padding: 0 5px 0 0;
+    color: #a093b3;
+}
+
+.Detalle-box-sucursal-title span{
+    text-align: end;
+}
+
+.Detalle-box-sucursal-description{
+    text-align: start;
+    color: #a093b3;
+    padding: 0 0px 0 45px;
+    
+}
+.Detalle-box-sucursal-card{
+    text-align: start;
+    padding: 20px 0 20px 0;
+    width: 800px;
+    margin:20px 0 0 0;
+    border-radius: 7px;
+    background: #ffffff;
+    
+    
+   
+}
+.Detalle-box-sucursal-card-title{
+    font-size: 18px;
+    color:#424242;
+    padding: 0 0 0 30px;
+    
+}
+
+
+.Detalle-box-sucursal-card-child-Info{
+    padding: 20px 20px 20px 30px;
+    width: 100%;
+    border-bottom: 2px solid #ececec;
+    
+    
+}
+.Detalle-box-sucursal-card-child h4{
+    color: #8a3ffa;
+    text-align: start;
+}
+
+.Detalle-box-sucursal-card-child p{
+    padding: 10px 0 0 0;
+    text-align: start;
+    
+    
+}
+.Detalle-box-sucursal-card-child-Info-Gerente{
+    display: flex;
+}

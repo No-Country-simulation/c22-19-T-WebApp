@@ -1,13 +1,13 @@
-import "./Card_ventas_sucursales.css";
+import "./Card_ventas_productos.css";
 import PropTypes from 'prop-types';
 
 
-export const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_ventas }) => {
+export const Card_ventas_productos = ({ nombre, categoria, ventas, objetivo_ventas }) => {
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="sucursal">{sucursal}</h3>
-        <p className="localidad">{localidad}</p>
+        <h3 className="nombre">{nombre}</h3>
+        <p className="categoria">{categoria}</p>
       </div>
       <div className="card-body">
         <p className="ventas">
@@ -21,9 +21,9 @@ export const Card_ventas_sucursales = ({ sucursal, localidad, ventas, objetivo_v
     </div>
   )
 };
-Card_ventas_sucursales.propTypes = {
-  sucursal: PropTypes.string.isRequired,     
-  localidad: PropTypes.string.isRequired,     
+Card_ventas_productos.propTypes = {
+  nombre: PropTypes.string.isRequired,     
+  categoria: PropTypes.string.isRequired,     
   ventas: PropTypes.number,          
   objetivo_ventas: PropTypes.number,
 };

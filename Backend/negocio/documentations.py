@@ -1,7 +1,13 @@
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from .serializers import SucursalSerializer, VentaSerializer
+from .serializers import (
+    SucursalSerializer,
+    VentaSerializer,
+    MetaSerializer,
+    ProductoSerializer,
+    UserSerializer
+)
 
 
 class SucursalDocumentation:
@@ -145,6 +151,137 @@ class VentaDocumentation:
         responses={
             200: VentaSerializer(),
             404: 'No se encontró la venta con el ID proporcionado',
+            401: 'No autorizado'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+
+class MetaDocumentation:
+    @swagger_auto_schema(
+        operation_summary="Listado de Metas",
+        operation_description="Obtiene el detalle las metas semanales, mensuales y anuales \
+            de cada sucursal. Obteniendo las metas pretendidas y las acumuladas.",
+        responses={
+            200: MetaSerializer(),
+            400: 'Solicitud inválida',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Venta por ID",
+        operation_description="Obtiene los detalles de una meta específica basada en su ID.",
+        responses={
+            200: MetaSerializer(),
+            404: 'No se encontró la meta con el ID proporcionado',
+            401: 'No autorizado'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+
+class ProductoDocumentation:
+    @swagger_auto_schema(
+        operation_summary="Listado de Productos",
+        operation_description="Obtiene la lista de productos con sus datos.",
+        manual_parameters=[
+            openapi.Parameter(
+                'start_date',
+                openapi.IN_QUERY,
+                description="Fecha inicial para filtrar las ventas (formato YYYY-MM-DD)",
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_DATE,
+                required=False
+            ),
+            openapi.Parameter(
+                'end_date',
+                openapi.IN_QUERY,
+                description="Fecha final para filtrar las ventas (formato YYYY-MM-DD)",
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_DATE,
+                required=False
+            ),
+        ],
+        responses={
+            200: ProductoSerializer(),
+            400: 'Solicitud inválida',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Producto por ID",
+        operation_description="Obtiene los detalles de un producto específico basado en su ID.",
+        manual_parameters=[
+            openapi.Parameter(
+                'id',
+                openapi.IN_PATH,
+                description="ID de el producto que se desea consultar",
+                type=openapi.TYPE_INTEGER,
+                required=True
+            ),
+            openapi.Parameter(
+                'start_date',
+                openapi.IN_QUERY,
+                description="Fecha inicial para filtrar las ventas (formato YYYY-MM-DD)",
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_DATE,
+                required=False
+            ),
+            openapi.Parameter(
+                'end_date',
+                openapi.IN_QUERY,
+                description="Fecha final para filtrar las ventas (formato YYYY-MM-DD)",
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_DATE,
+                required=False
+            ),
+        ],
+        responses={
+            200: ProductoSerializer(),
+            404: 'No se encontró el producto con el ID proporcionado',
+            401: 'No autorizado'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+
+class UsuarioDocumentation:
+    @swagger_auto_schema(
+        operation_summary="Listado de Usuarios",
+        operation_description="Obtiene la lista de usuario con sus datos.",
+        responses={
+            200: UserSerializer(),
+            400: 'Solicitud inválida',
+            403: 'Forbidden'
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @ swagger_auto_schema(
+        operation_summary="Usuario por ID",
+        operation_description="Obtiene los detalles de un usuario específico basado en su ID.",
+        manual_parameters=[
+            openapi.Parameter(
+                'id',
+                openapi.IN_PATH,
+                description="ID de el usuario que se desea consultar",
+                type=openapi.TYPE_INTEGER,
+                required=True
+            ),
+        ],
+        responses={
+            200: UserSerializer(),
+            404: 'No se encontró el usuario con el ID proporcionado',
             401: 'No autorizado'
         }
     )
