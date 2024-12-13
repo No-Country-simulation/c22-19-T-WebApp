@@ -30,11 +30,12 @@ export const DialogFilter = ({ open, onClose }) => {
   useEffect(() => {
     const fetchSucursales = async () => {
       try {
+        const responseToken = await axios.get("https://c2219twebapp.pythonanywhere.com/user/get-csrf/");
         const response = await axios.get(
           "https://c2219twebapp.pythonanywhere.com/negocio/api/v1/sucursales/",
           {
             headers: {
-              "X-CSRFToken": localStorage.getItem("token"), // Token almacenado
+              "X-CSRFToken": responseToken.data.csrfToken, // localStorage.getItem("token"), // Token almacenado
               "Content-Type": "application/json",
             },
             withCredentials: true,
