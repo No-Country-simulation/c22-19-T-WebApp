@@ -28,8 +28,14 @@ export const AuthProvider = ({ children }) => {
       */
 
       const responseToken = await axios.get("https://c2219twebapp.pythonanywhere.com/user/get-csrf/");
-      //const response = await axios.post("https://c2219twebapp.pythonanywhere.com/user/login/", credentials);
-      const userAndPasswordMatch = true;//response.status == 200;          
+      const response = await axios.post("https://c2219twebapp.pythonanywhere.com/user/login/", credentials, {
+        headers: {
+          "X-CSRFToken": responseToken.data.csrfToken,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      const userAndPasswordMatch = response.status == 200;          
       
 
       if (!userAndPasswordMatch) {
