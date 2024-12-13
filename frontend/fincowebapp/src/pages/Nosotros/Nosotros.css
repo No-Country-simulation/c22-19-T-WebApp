@@ -1,0 +1,106 @@
+.nosotros{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.nosotros__section{
+    width: 50%;
+    background-color: #F7F8FD;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.nosotros__image-logo{
+    width: 300px;
+    height: auto;
+}
+.--background-color-purple{
+    background-color: #332C49;
+}
+
+.nosotros-card{
+    width: 381px;
+    background-color: #FFF;
+    padding: 12px 24px 24px 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    border-radius: 2px;
+    font-size: 1em;
+    
+}
+.nosotros-card__header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;    
+    
+}
+
+.nosotros-card__header__icon{
+    font-size: 1.8em;
+    cursor: pointer;
+}
+
+.nosotros-card__group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nosotros-card__group_title{
+    color: #4F46E5;
+    text-align: left;
+    
+}
+.nosotros-card__group_ul{
+    list-style: none;
+    text-align: left;
+    border: #E2E8F0 solid 2px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    row-gap: 8px;
+}
+
+.modal_period-button {
+    background: #4F46E5;
+    color: white;    
+    font-weight: 500;
+    border: none;
+    padding: 6px 32px;
+    width: 100%;
+    min-height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+ .modal_period-button:hover {
+    background-color: #332C49;
+    color: #FBF8FF;
+  }
+
+  .nosotros-card__group__image{
+    width: 35px;
+    height: auto;
+    border-radius: 50%;
+    background-color: #332C49;
+  }
+
+  .nosotros-card__group_li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 8px;
+    padding: 4px 0;
+    transition: all .2s;
+    cursor: pointer;
+  }
+
+  .nosotros-card__group_li:hover{
+    transform: scale(1.4) translate(20px, 0px);   
+    background-color: #FBF8FF;
+  }

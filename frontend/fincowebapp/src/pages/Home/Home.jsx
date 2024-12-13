@@ -19,56 +19,9 @@ export const Home = () => {
   const [currentSalesTotal, setCurrentSalesTotal] = useState(0);
   const [prevSalesTotal, setPrevSalesTotal] = useState(0);
 
-  const navigate = useNavigate();
-  
+  const navigate = useNavigate();  
 
-  const { filterDate, branches, products, users, isDataLoaded } = useHome();  
-
-
-  const renderEntities = () => {
-    switch (selectedIcon) {
-      case "building":
-        return filteredBranches.map((branch) => {
-          let objetivoVentas = 1000;
-          if (filterDate.periodName === "semana") objetivoVentas = 250;
-          if (filterDate.periodName === "mes") objetivoVentas = 1500;
-          if (filterDate.periodName === "año") objetivoVentas = 20000;
-
-          return (
-            <Card_ventas_sucursales
-              key={`branch_${branch.id}`}
-              sucursal={branch.nombre}
-              localidad={branch.city}
-              ventas={parseFloat(branch.salesByPeriod)}
-              objetivo_ventas={objetivoVentas}
-            />
-          );
-        });
-
-      case "shoppingBag":
-        return products.map((product) => (
-          <Card_ventas_sucursales
-            key={`product_${product.id}`}
-            localidad={product.title}            
-            ventas={542}
-            objetivo_ventas={1000}
-          />
-        ));
-
-      case "bookReader":
-        return users.map((user) => (
-          <Card_ventas_sucursales
-            key={`user_${user.id}`}
-            localidad={user.username}
-            ventas={542}
-            objetivo_ventas={1000}
-          />
-        ));
-
-      default:
-        return null;
-    }
-  };
+  const { filterDate, branches, products, users, isDataLoaded } = useHome();    
 
   const getSalesData = async () => {
     try {
@@ -116,8 +69,8 @@ export const Home = () => {
 
   useEffect(() => {
     if (isDataLoaded && branches.length && currentSales.length) {
-      console.log(`datos cargados en el contexto, sucursales, productos, y personal`);
-      console.log( users)
+      //console.log(`datos cargados en el contexto, sucursales, productos, y personal`);
+      //console.log( users)
       const updatedFilteredBranches = branches.map(branch => {
         const salesById = currentSales.filter(sale => sale.sucursal === branch.id);
         const totalSales = salesById.reduce((sum, sale) => sum + parseFloat(sale.total), 0);
@@ -129,12 +82,12 @@ export const Home = () => {
         };
       });
       const filteredByText = updatedFilteredBranches.filter(branch => branch.name.toLowerCase().includes(searchText.toLowerCase()));
-      console.log(filteredByText)
+      //console.log(filteredByText)
       setFilteredBranches(filteredByText);      
     }
   }, [branches, currentSales, searchText]);
 
-  if (loading) {
+  if (loading && !isDataLoaded) {
     return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
   }
 
@@ -161,7 +114,7 @@ export const Home = () => {
       />
 
       {/* Renderizar condicionalmente según selectedIcon */}
-      {selectedIcon === "building" && (
+      {selectedIcon === "building"  && (
         filteredBranches.map((branch) => {
           let objetivoVentas = 1000;
           if (filterDate.periodName === "semana") {

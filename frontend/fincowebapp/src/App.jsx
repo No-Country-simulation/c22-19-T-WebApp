@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import './App.css'
-import { Home, Notfound, UnderConstruction, Login } from "./pages";
+import { Home, Notfound, UnderConstruction, Login, Nosotros } from "./pages";
 
 import { AuthProvider } from "./context/AuthContext";
 import { HomeProvider } from "./context/HomeContext";
@@ -24,6 +24,7 @@ function App() {
               <Route path="DetallesSucursales/:id" element={<DetalleSucursal></DetalleSucursal>}/>
               <Route path="DetallesPersonal/:empleadoId" element={<DetallePersonal></DetallePersonal>}/>
               <Route path="staff" element={<Personal />}/>
+              <Route path="nosotros" element={<Nosotros />}/>
               <Route path="*" element={<Notfound />}/>  
               <Route path="login" element={<Login />}/>  
             </Routes>    
