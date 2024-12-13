@@ -4,8 +4,13 @@ import { FaRegBuilding, FaUserTie } from "react-icons/fa";
 import "./Personal.css";
 import { Header } from "../Header/Header";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useHome } from "../../context/HomeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons';
+
 function Personal() {
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
+    const { filterDate, branches, products, users, isDataLoaded } = useHome();  
     const [searchTerm, setSearchTerm] = useState("");
     const navigate= useNavigate()
     const getBranchesData = async () => {
@@ -25,15 +30,19 @@ function Personal() {
             console.error("Error fetching branches data:", error);
         }
     };
-
+/*
     useEffect(() => {
         getBranchesData();
     }, []);
-
-    const filteredData = data.filter((empleado) =>
+*/
+    const filteredData = users.filter((empleado) =>
         empleado.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
     // Filtrar empleados según el término de búsqueda
+
+    if (!isDataLoaded){
+        return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
+    }
 
     return (
         <>

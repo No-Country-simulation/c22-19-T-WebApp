@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { FaRegBuilding, FaUserTie, FaTag } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useHome } from "../../context/HomeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons';
 function Sucursales() {
     const navigate = useNavigate();
-    const [data, setData] = useState([])
+    //const [data, setData] = useState([])
     const [filtro, setFiltro]=useState("")
-
+    const { filterDate, branches, products, users, isDataLoaded } = useHome();  
     
     const getBranchesData = async () => {
         try {
@@ -32,13 +35,20 @@ function Sucursales() {
         }
     };
 
+    /*
     useEffect(() => {
 
         getBranchesData()
     
     }, [])
+*/
 
-    const filteredData = data.filter(d => d.nombre.toLowerCase().includes(filtro.toLowerCase()));
+    const filteredData = branches.filter(d => d.nombre.toLowerCase().includes(filtro.toLowerCase()));
+
+    if (!isDataLoaded){
+        return <div className="Loading"><i><FontAwesomeIcon icon={faHourglassStart} shake /></i></div>;
+    }
+
 
     return (
         <>
