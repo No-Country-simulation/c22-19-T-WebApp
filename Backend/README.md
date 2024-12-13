@@ -79,7 +79,16 @@ Sigue las instrucciones que aparecerán en la terminal para asignar un nombre de
 
 ---
 
-## 5. Ejecutar el Servidor de Desarrollo
+## 5. Cargar Información en la Base de Datos
+
+Para poder cargar la base de datos con información de prueba, ejecutar el siguiente comando:
+```bash
+python manage.py runscript cargar_data
+```
+
+---
+
+## 6. Ejecutar el Servidor de Desarrollo
 
 Por último, inicia el servidor de desarrollo con:  
 ```bash
