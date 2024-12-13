@@ -5,6 +5,9 @@ import { useHome } from "../../context/HomeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassStart } from '@fortawesome/free-solid-svg-icons';
 import "./Home.css"
+
+import { useNavigate  } from "react-router-dom";
+
 export const Home = () => {
   const [currentUser, setCurrentUser] = useState({ username: 'Default' });
   
@@ -15,6 +18,8 @@ export const Home = () => {
   const [selectedIcon, setSelectedIcon] = useState('building');
   const [currentSalesTotal, setCurrentSalesTotal] = useState(0);
   const [prevSalesTotal, setPrevSalesTotal] = useState(0);
+
+  const navigate = useNavigate();
   
 
   const { filterDate, branches, products, users, isDataLoaded } = useHome();  
@@ -88,7 +93,9 @@ export const Home = () => {
   };
 
   const getCurrentUser = () => {
-    setCurrentUser(JSON.parse(localStorage.getItem("user")));    
+    const user = JSON.parse(localStorage.getItem("user"))
+    if (!user) return navigate("/login")
+      setCurrentUser(JSON.parse(localStorage.getItem("user")));    
   }
 
   const loadData = async () => {
