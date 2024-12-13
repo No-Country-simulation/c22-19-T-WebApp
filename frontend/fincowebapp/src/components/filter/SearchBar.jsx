@@ -97,11 +97,12 @@ export function SearchBar({ setSearchText, searchText,  setSelectedIcon, selecte
                 value={searchText}
                 onChange={handleImputChange}
                 />
-                <button className="searchBar-button-Filter"
+
+                {/* <button className="searchBar-button-Filter"
                 onClick={handleClickOpen}
                 >
                     <FaFilter className="icon" />
-                </button>
+                </button> */}
                     <DialogFilter open={open} onClose={handleClose}></DialogFilter>
                     <ProductDialog open={openProduct} onClose={handleProductClose}></ProductDialog>
                     <PersonalDialog open={openPersonal} onClose={handlePersonalClose}></PersonalDialog>
